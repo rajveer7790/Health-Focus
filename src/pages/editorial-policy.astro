@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Newsletter from '../components/Newsletter.astro';
+---
+
+<BaseLayout title="Editorial Policy" description="Our commitment to accuracy, integrity, and evidence-based health reporting.">
+  <section class="section-padding bg-neutral-50">
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="font-display font-bold text-4xl md:text-5xl lg:text-6xl mb-6">
+          Editorial Policy
+        </h1>
+        <p class="text-xl text-neutral-600 max-w-2xl mx-auto">
+          Our commitment to providing accurate, unbiased, and evidence-based health information you can trust.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-padding">
+    <div class="container-custom">
+      <div class="max-w-3xl mx-auto prose-custom">
+        <h2>Our Mission</h2>
+        <p>
+          Our mission is to empower you with the clearest, most evidence-based health and wellness information available. We believe that better health starts with better information.
+        </p>
+
+        <h2>Content Integrity</h2>
+        <p>
+          We differ from other health sites because we prioritize <strong>scientific accuracy</strong> above viral trends. Our content is:
+        </p>
+        <ul>
+          <li><strong>Evidence-Based:</strong> We rely on peer-reviewed studies, reputable medical organizations, and academic institutions.</li>
+          <li><strong>Expert-Reviewed:</strong> Our content is written by experienced health journalists and reviewed by qualified professionals.</li>
+          <li><strong>Unbiased:</strong> We maintain strict editorial independence. Advertisers do not influence our content.</li>
+        </ul>
+
+        <h2>Sourcing & Citations</h2>
+        <p>
+          We are transparent about where our information comes from. You will see inline links to primary sources, study citations, and credible health authorities (like the CDC, NIH, and WHO).
+        </p>
+
+        <h2>Corrections</h2>
+        <p>
+          Accuracy is our core value. If we discover an error, we correct it immediately and transparently. If you believe you have found an error, please contact us.
+        </p>
+
+        <h2>Disclaimer</h2>
+        <p>
+          The content on this website is for informational purposes only and is not intended to be a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.
+        </p>
+        
+        <div class="mt-12 not-prose p-6 bg-primary-50 rounded-2xl border border-primary-100">
+           <h3 class="font-bold text-primary-900 mb-2">Have a question about our standards?</h3>
+           <p class="text-primary-700 mb-4">We'd love to hear from you.</p>
+           <a href="/contact" class="btn btn-primary">Contact Editorial Team</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Newsletter />
+</BaseLayout>

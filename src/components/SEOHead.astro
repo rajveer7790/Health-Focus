@@ -1,0 +1,99 @@
+---
+import { SITE_CONFIG, generateSEO } from "../utils/seo";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  article?: boolean;
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
+  tags?: string[];
+  schema?: any;
+}
+
+const {
+  title,
+  description,
+  image,
+  article = false,
+  publishedTime,
+  modifiedTime,
+  author,
+  tags = [],
+  schema,
+} = Astro.props;
+
+const seo = generateSEO({
+  title,
+  description,
+  image,
+  article,
+  publishedTime,
+  modifiedTime,
+  author,
+  tags,
+  url: Astro.url.href,
+});
+---
+
+<!-- Primary Meta Tags -->
+<title>{seo.title}</title>
+<meta name="title" content={seo.title} />
+<meta name="description" content={seo.description} />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href={seo.canonical} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={seo.openGraph.basic.type} />
+<meta property="og:url" content={seo.openGraph.basic.url} />
+<meta property="og:title" content={seo.openGraph.basic.title} />
+<meta property="og:description" content={seo.openGraph.optional.description} />
+<meta property="og:image" content={seo.openGraph.basic.image} />
+<meta property="og:site_name" content={seo.openGraph.optional.siteName} />
+
+{
+  article && seo.openGraph.article && (
+    <>
+      <meta
+        property="article:published_time"
+        content={seo.openGraph.article.publishedTime}
+      />
+      {seo.openGraph.article.modifiedTime && (
+        <meta
+          property="article:modified_time"
+          content={seo.openGraph.article.modifiedTime}
+        />
+      )}
+      <meta
+        property="article:author"
+        content={seo.openGraph.article.author[0]}
+      />
+      {seo.openGraph.article.tags.map((tag: string) => (
+        <meta property="article:tag" content={tag} />
+      ))}
+    </>
+  )
+}
+
+<!-- Twitter -->
+<meta property="twitter:card" content={seo.twitter.card} />
+<meta property="twitter:url" content={seo.openGraph.basic.url} />
+<meta property="twitter:title" content={seo.twitter.title} />
+<meta property="twitter:description" content={seo.twitter.description} />
+<meta property="twitter:image" content={seo.twitter.image} />
+<meta property="twitter:site" content={seo.twitter.site} />
+<meta property="twitter:creator" content={seo.twitter.creator} />
+
+<!-- Structured Data -->
+{
+  schema && (
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  )
+}
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- Fonts are loaded via CSS @import in global.css -->

@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import Newsletter from '../../components/Newsletter.astro';
+import { getCollection } from 'astro:content';
+import { calculateReadingTime } from '../../utils/readingTime';
+
+// Get all blog posts
+const allPosts = await getCollection('blog');
+
+// Filter out drafts and sort by date
+const publishedPosts = allPosts
+  .filter(post => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<BaseLayout title="Blog">
+  <section class="section-padding">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h1 class="font-display font-bold text-4xl md:text-5xl lg:text-6xl mb-6">
+          Health & Wellness Blog
+        </h1>
+        <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+          Evidence-based articles on mental health, nutrition, fitness, sleep, and healthy lifestyle habits
+        </p>
+      </div>
+
+      {publishedPosts.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {publishedPosts.map((post) => (
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              slug={post.slug}
+              category={post.data.category}
+              pubDate={post.data.pubDate}
+              readingTime={calculateReadingTime(post.body)}
+              image={post.data.image}
+              featured={post.data.featured}
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-16">
+          <p class="text-xl text-neutral-600">No blog posts yet. Check back soon!</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <Newsletter />
+</BaseLayout>

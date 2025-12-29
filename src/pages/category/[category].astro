@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import Newsletter from '../../components/Newsletter.astro';
+import { calculateReadingTime } from '../../utils/readingTime';
+import { CATEGORIES } from '../../utils/seo';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog');
+  
+  return CATEGORIES.map(category => ({
+    params: { category: category.slug },
+    props: { 
+      category,
+      posts: allPosts
+        .filter(post => !post.data.draft && post.data.category === category.slug)
+        .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+    },
+  }));
+}
+
+const { category, posts } = Astro.props;
+---
+
+<BaseLayout title={category.name}>
+  <section class="section-padding">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <div class="text-7xl mb-6 animate-float">
+          {category.icon}
+        </div>
+        <h1 class="font-display font-bold text-4xl md:text-5xl lg:text-6xl mb-6">
+          {category.name}
+        </h1>
+        <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+          Explore our collection of {category.name.toLowerCase()} articles
+        </p>
+      </div>
+
+      {posts.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {posts.map((post) => (
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              slug={post.slug}
+              category={post.data.category}
+              pubDate={post.data.pubDate}
+              readingTime={calculateReadingTime(post.body)}
+              image={post.data.image}
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-16">
+          <p class="text-xl text-neutral-600">No articles in this category yet. Check back soon!</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <Newsletter />
+</BaseLayout>
