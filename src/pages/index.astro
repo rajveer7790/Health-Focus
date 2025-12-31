@@ -22,8 +22,16 @@ const recentPosts = publishedPosts.slice(0, 6);
 ---
 
 <BaseLayout
-  title="Health Focus | Your Health. Your Focus. Your Future."
-  description="Practical guidance for building sustainable fitness and healthy habits in real life."
+  title="Health Focus | Fitness & Wellness Blog for Sustainable Healthy Living"
+  description="Discover practical fitness tips, nutrition advice, and wellness strategies for building sustainable healthy habits. Evidence-based guidance for real life—no quick fixes or fads."
+  keywords={[
+    "sustainable fitness habits",
+    "wellness lifestyle blog",
+    "practical health advice",
+    "fitness for busy people",
+    "healthy habits that last",
+    "evidence-based fitness",
+  ]}
 >
   <!-- Hero Section -->
   <section
@@ -47,15 +55,18 @@ const recentPosts = publishedPosts.slice(0, 6);
         <h1
           class="font-display font-bold text-5xl md:text-6xl lg:text-7xl mb-6 animate-slide-up text-neutral-900 dark:text-white"
         >
-          Your Health. Your Focus.
-          <span class="gradient-text">Your Future.</span>
+          Building Sustainable
+          <span class="gradient-text">Fitness & Wellness Habits</span>
+          for Real Life
         </h1>
 
         <p
           class="text-xl md:text-2xl text-neutral-600 dark:text-neutral-300 mb-8 max-w-3xl mx-auto animate-slide-up text-balance"
           style="animation-delay: 0.1s;"
         >
-          Practical guidance for building sustainable fitness and healthy habits in real life.
+          Evidence-based guidance for busy people who want to get fit, stay
+          healthy, and build habits that actually stick. No quick fixes—just
+          practical strategies that work for your lifestyle.
         </p>
 
         <div
@@ -63,7 +74,7 @@ const recentPosts = publishedPosts.slice(0, 6);
           style="animation-delay: 0.2s;"
         >
           <a href="/blog" class="btn btn-primary text-lg px-8 py-4">
-            Explore Articles
+            Explore Latest Articles
             <svg
               class="w-5 h-5"
               fill="none"
@@ -78,7 +89,7 @@ const recentPosts = publishedPosts.slice(0, 6);
             </svg>
           </a>
           <a href="#newsletter" class="btn btn-secondary text-lg px-8 py-4">
-            Get Weekly Tips
+            Get Weekly Wellness Tips
           </a>
         </div>
 
@@ -137,48 +148,7 @@ const recentPosts = publishedPosts.slice(0, 6);
     </div>
   </section>
 
-  <!-- Categories Section -->
-  <section
-    class="section-padding bg-white dark:bg-neutral-900 transition-colors duration-300"
-  >
-    <div class="container-custom">
-      <div class="text-center mb-16">
-        <h2
-          class="font-display font-bold text-3xl md:text-4xl lg:text-5xl mb-4 text-neutral-900 dark:text-white"
-        >
-          Explore by Category
-        </h2>
-        <p
-          class="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto"
-        >
-          Find the health topics that matter most to you
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {
-          CATEGORIES.map((category) => (
-            <a
-              href={`/category/${category.slug}`}
-              class="card card-hover p-8 text-center group bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 hover:border-primary-200 dark:hover:border-primary-800"
-            >
-              <div class="text-6xl mb-4 transform group-hover:scale-110 transition-transform">
-                {category.icon}
-              </div>
-              <h3 class="font-display font-bold text-xl mb-2 text-neutral-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-                {category.name}
-              </h3>
-              <p class="text-neutral-600 dark:text-neutral-400 text-sm">
-                Explore {category.name.toLowerCase()} articles
-              </p>
-            </a>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- Latest Articles Section (Healthline Style) -->
+  <!-- Latest Articles Section -->
   <section
     class="section-padding bg-white dark:bg-neutral-950 transition-colors duration-300"
   >
@@ -215,76 +185,24 @@ const recentPosts = publishedPosts.slice(0, 6);
         </a>
       </div>
 
-      <!-- Layout Grid -->
-      <div class="space-y-12">
-        <!-- Top Section: Hero + Secondary Feature -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Main Hero Article (Overlay Style) - Takes up approx 2/3 width */}
-          <div class="lg:col-span-8">
-            {
-              publishedPosts[0] && (
-                <BlogCard
-                  title={publishedPosts[0].data.title}
-                  description={publishedPosts[0].data.description}
-                  slug={publishedPosts[0].slug}
-                  category={publishedPosts[0].data.category}
-                  pubDate={publishedPosts[0].data.pubDate}
-                  readingTime={calculateReadingTime(publishedPosts[0].body)}
-                  image={publishedPosts[0].data.image}
-                  variant="overlay"
-                />
-              )
-            }
-          </div>
-
-          {/* Secondary Feature (Regular Style) - Takes up approx 1/3 width */}
-          <div class="lg:col-span-4">
-            {
-              publishedPosts[1] && (
-                <BlogCard
-                  title={publishedPosts[1].data.title}
-                  description={publishedPosts[1].data.description}
-                  slug={publishedPosts[1].slug}
-                  category={publishedPosts[1].data.category}
-                  pubDate={publishedPosts[1].data.pubDate}
-                  readingTime={calculateReadingTime(publishedPosts[1].body)}
-                  image={publishedPosts[1].data.image}
-                  variant="regular"
-                />
-              )
-            }
-          </div>
-        </div>
-
-        <!-- Recent Grid: 4 Columns (Compact Style) -->
-        <div>
-          <h3
-            class="font-bold text-xl text-neutral-900 dark:text-white mb-6 flex items-center gap-2"
-          >
-            <span class="w-1 h-6 bg-accent-500 rounded-full"></span>
-            More Top Reads
-          </h3>
-          <div
-            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10"
-          >
-            {
-              publishedPosts
-                .slice(2, 10)
-                .map((post) => (
-                  <BlogCard
-                    title={post.data.title}
-                    description={post.data.description}
-                    slug={post.slug}
-                    category={post.data.category}
-                    pubDate={post.data.pubDate}
-                    readingTime={calculateReadingTime(post.body)}
-                    image={post.data.image}
-                    variant="compact"
-                  />
-                ))
-            }
-          </div>
-        </div>
+      <!-- Simple Grid Layout -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {
+          publishedPosts
+            .slice(0, 6)
+            .map((post) => (
+              <BlogCard
+                title={post.data.title}
+                description={post.data.description}
+                slug={post.slug}
+                category={post.data.category}
+                pubDate={post.data.pubDate}
+                readingTime={calculateReadingTime(post.body)}
+                image={post.data.image}
+                author={post.data.author}
+              />
+            ))
+        }
       </div>
     </div>
   </section>

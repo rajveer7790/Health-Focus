@@ -14,9 +14,10 @@ interface Props {
   description?: string;
   image?: string;
   schema?: any;
+  keywords?: string | string[];
 }
 
-const { title, description, image, schema } = Astro.props;
+const { title, description, image, schema, keywords } = Astro.props;
 ---
 
 <!doctype html>
@@ -29,6 +30,7 @@ const { title, description, image, schema } = Astro.props;
       description={description}
       image={image}
       schema={schema}
+      keywords={keywords}
     />
     <script is:inline>
       // Immediate theme initialization to prevent flash

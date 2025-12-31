@@ -11,6 +11,7 @@ interface Props {
   author?: string;
   tags?: string[];
   schema?: any;
+  keywords?: string | string[];
 }
 
 const {
@@ -23,6 +24,7 @@ const {
   author,
   tags = [],
   schema,
+  keywords,
 } = Astro.props;
 
 const seo = generateSEO({
@@ -42,6 +44,14 @@ const seo = generateSEO({
 <title>{seo.title}</title>
 <meta name="title" content={seo.title} />
 <meta name="description" content={seo.description} />
+{
+  keywords && (
+    <meta
+      name="keywords"
+      content={Array.isArray(keywords) ? keywords.join(", ") : keywords}
+    />
+  )
+}
 <meta name="robots" content="index, follow" />
 <link rel="canonical" href={seo.canonical} />
 

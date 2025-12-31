@@ -1,69 +1,92 @@
 ---
-import { CATEGORIES } from '../utils/seo';
+import { CATEGORIES } from "../utils/seo";
 
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="sticky top-0 z-50 bg-white/95 dark:bg-neutral-900/95 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-xl">
+<header
+  class="sticky top-0 z-50 bg-white/95 dark:bg-neutral-900/95 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-xl"
+>
   <nav class="container-custom">
     <div class="flex items-center justify-between h-16 md:h-20">
       <!-- Logo -->
       <a href="/" class="flex items-center gap-2 group">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-600 to-accent-600 flex items-center justify-center transform group-hover:scale-110 transition-transform">
-          <span class="text-white text-xl font-bold">HF</span>
-        </div>
-        <span class="font-display font-bold text-xl hidden sm:block gradient-text">
+        <img
+          src="/helathFocuslogo.png"
+          alt="Health Focus Logo"
+          class="w-10 h-10 object-contain transform group-hover:scale-110 transition-transform"
+        />
+        <span
+          class="font-display font-bold text-xl hidden sm:block gradient-text"
+        >
           Health Focus
         </span>
       </a>
 
       <!-- Desktop Navigation -->
       <div class="hidden md:flex items-center gap-8">
-        <a 
-          href="/" 
-          class={`font-medium transition-colors ${currentPath === '/' ? 'text-primary-600 dark:text-primary-400' : 'text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400'}`}
+        <a
+          href="/"
+          class={`font-medium transition-colors ${currentPath === "/" ? "text-primary-600 dark:text-primary-400" : "text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400"}`}
         >
           Home
         </a>
-        <a 
-          href="/blog" 
-          class={`font-medium transition-colors ${currentPath.startsWith('/blog') ? 'text-primary-600 dark:text-primary-400' : 'text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400'}`}
+        <a
+          href="/blog"
+          class={`font-medium transition-colors ${currentPath.startsWith("/blog") ? "text-primary-600 dark:text-primary-400" : "text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400"}`}
         >
           Blog
         </a>
-        
+
         <!-- Categories Dropdown -->
         <div class="relative group">
-          <button class="font-medium text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center gap-1">
+          <button
+            class="font-medium text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center gap-1"
+          >
             Categories
-            <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            <svg
+              class="w-4 h-4 transition-transform group-hover:rotate-180"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"></path>
             </svg>
           </button>
-          <div class="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-neutral-800 backdrop-blur-lg rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 border border-neutral-200 dark:border-neutral-700">
+          <div
+            class="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-neutral-800 backdrop-blur-lg rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 border border-neutral-200 dark:border-neutral-700"
+          >
             <div class="p-2">
-              {CATEGORIES.map((category) => (
-                <a 
-                  href={`/category/${category.slug}`}
-                  class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
-                >
-                  <span class="text-2xl">{category.icon}</span>
-                  <span class="font-medium text-neutral-700 dark:text-neutral-200">{category.name}</span>
-                </a>
-              ))}
+              {
+                CATEGORIES.map((category) => (
+                  <a
+                    href={`/category/${category.slug}`}
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                  >
+                    <span class="text-2xl">{category.icon}</span>
+                    <span class="font-medium text-neutral-700 dark:text-neutral-200">
+                      {category.name}
+                    </span>
+                  </a>
+                ))
+              }
             </div>
           </div>
         </div>
 
-        <a 
-          href="/about" 
-          class={`font-medium transition-colors ${currentPath === '/about' ? 'text-primary-600 dark:text-primary-400' : 'text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400'}`}
+        <a
+          href="/about"
+          class={`font-medium transition-colors ${currentPath === "/about" ? "text-primary-600 dark:text-primary-400" : "text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400"}`}
         >
           About
         </a>
-        <a 
-          href="/contact" 
-          class={`font-medium transition-colors ${currentPath === '/contact' ? 'text-primary-600 dark:text-primary-400' : 'text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400'}`}
+        <a
+          href="/contact"
+          class={`font-medium transition-colors ${currentPath === "/contact" ? "text-primary-600 dark:text-primary-400" : "text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400"}`}
         >
           Contact
         </a>
@@ -108,19 +131,26 @@ const currentPath = Astro.url.pathname;
         </button>
 
         <!-- Subscribe Button -->
-        <a href="#newsletter" class="btn btn-primary text-sm">
-          Subscribe
-        </a>
+        <a href="#newsletter" class="btn btn-primary text-sm"> Subscribe </a>
       </div>
 
       <!-- Mobile Menu Button -->
-      <button 
+      <button
         id="mobile-menu-button"
         class="md:hidden p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
         aria-label="Toggle menu"
       >
-        <svg class="w-6 h-6 text-neutral-700 dark:text-neutral-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        <svg
+          class="w-6 h-6 text-neutral-700 dark:text-neutral-300"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
       </button>
     </div>
@@ -128,42 +158,86 @@ const currentPath = Astro.url.pathname;
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="hidden md:hidden pb-4 animate-slide-down">
       <div class="flex flex-col gap-2">
-        <a href="/" class="px-4 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors font-medium text-neutral-700 dark:text-neutral-300">Home</a>
-        <a href="/blog" class="px-4 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors font-medium text-neutral-700 dark:text-neutral-300">Blog</a>
-        
+        <a
+          href="/"
+          class="px-4 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors font-medium text-neutral-700 dark:text-neutral-300"
+          >Home</a
+        >
+        <a
+          href="/blog"
+          class="px-4 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors font-medium text-neutral-700 dark:text-neutral-300"
+          >Blog</a
+        >
+
         <div class="px-4 py-2">
-          <p class="text-sm font-semibold text-neutral-500 dark:text-neutral-400 mb-2">Categories</p>
+          <p
+            class="text-sm font-semibold text-neutral-500 dark:text-neutral-400 mb-2"
+          >
+            Categories
+          </p>
           <div class="flex flex-col gap-1 pl-2">
-            {CATEGORIES.map((category) => (
-              <a 
-                href={`/category/${category.slug}`}
-                class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
-              >
-                <span class="text-xl">{category.icon}</span>
-                <span class="text-sm text-neutral-700 dark:text-neutral-300">{category.name}</span>
-              </a>
-            ))}
+            {
+              CATEGORIES.map((category) => (
+                <a
+                  href={`/category/${category.slug}`}
+                  class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+                >
+                  <span class="text-xl">{category.icon}</span>
+                  <span class="text-sm text-neutral-700 dark:text-neutral-300">
+                    {category.name}
+                  </span>
+                </a>
+              ))
+            }
           </div>
         </div>
-        
-        <a href="/about" class="px-4 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors font-medium text-neutral-700 dark:text-neutral-300">About</a>
-        <a href="/contact" class="px-4 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors font-medium text-neutral-700 dark:text-neutral-300">Contact</a>
-        
+
+        <a
+          href="/about"
+          class="px-4 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors font-medium text-neutral-700 dark:text-neutral-300"
+          >About</a
+        >
+        <a
+          href="/contact"
+          class="px-4 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors font-medium text-neutral-700 dark:text-neutral-300"
+          >Contact</a
+        >
+
         <!-- Dark Mode Toggle for Mobile -->
         <button
           id="dark-mode-toggle-mobile"
           class="mx-4 px-4 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors font-medium text-neutral-700 dark:text-neutral-300 flex items-center gap-2"
         >
-          <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+          <svg
+            class="w-5 h-5 hidden dark:block"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+            ></path>
           </svg>
-          <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+          <svg
+            class="w-5 h-5 dark:hidden"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+            ></path>
           </svg>
           <span class="dark:hidden">Dark Mode</span>
           <span class="hidden dark:block">Light Mode</span>
         </button>
-        
+
         <a href="#newsletter" class="btn btn-primary mx-4 mt-2">Subscribe</a>
       </div>
     </div>
@@ -173,41 +247,43 @@ const currentPath = Astro.url.pathname;
 <script is:inline>
   // Simple, robust toggle logic
   function setupThemeToggles() {
-    const themeToggles = document.querySelectorAll('#dark-mode-toggle, #dark-mode-toggle-mobile');
+    const themeToggles = document.querySelectorAll(
+      "#dark-mode-toggle, #dark-mode-toggle-mobile",
+    );
     const html = document.documentElement;
 
-    themeToggles.forEach(toggle => {
+    themeToggles.forEach((toggle) => {
       // Clone to remove old event listeners if any (safety)
       const newToggle = toggle.cloneNode(true);
       toggle.parentNode.replaceChild(newToggle, toggle);
-      
-      newToggle.addEventListener('click', (e) => {
+
+      newToggle.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
-        
-        const isDark = html.classList.contains('dark');
-        const nextTheme = isDark ? 'light' : 'dark';
-        
-        if (nextTheme === 'dark') {
-          html.classList.add('dark');
+
+        const isDark = html.classList.contains("dark");
+        const nextTheme = isDark ? "light" : "dark";
+
+        if (nextTheme === "dark") {
+          html.classList.add("dark");
         } else {
-          html.classList.remove('dark');
+          html.classList.remove("dark");
         }
-        
-        localStorage.setItem('theme', nextTheme);
+
+        localStorage.setItem("theme", nextTheme);
       });
     });
-    
+
     // Mobile menu logic
-    const menuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    
+    const menuButton = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+
     if (menuButton && mobileMenu) {
       const newMenuButton = menuButton.cloneNode(true);
       menuButton.parentNode.replaceChild(newMenuButton, menuButton);
-      
-      newMenuButton.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
+
+      newMenuButton.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
       });
     }
   }
@@ -216,5 +292,5 @@ const currentPath = Astro.url.pathname;
   setupThemeToggles();
 
   // Re-run on view transitions if they exist
-  document.addEventListener('astro:after-swap', setupThemeToggles);
+  document.addEventListener("astro:after-swap", setupThemeToggles);
 </script>
