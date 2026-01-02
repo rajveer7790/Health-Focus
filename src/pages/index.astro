@@ -26,8 +26,8 @@ const schema = generateWebSiteSchema();
 ---
 
 <BaseLayout
-  title="Health Focus | Fitness & Wellness Blog for Sustainable Healthy Living"
-  description="Discover practical fitness tips, nutrition advice, and sustainable wellness strategies. Evidence-based guidance for real life—no quick fixes or fads."
+  title="Health Focus: Sustainable Fitness & Wellness Advice"
+  description="Practical fitness tips, nutrition advice, and sustainable wellness strategies for real life. Build healthy habits with evidence-based guidance. No fads."
   schema={schema}
   keywords={[
     "sustainable fitness habits",
@@ -76,8 +76,8 @@ const schema = generateWebSiteSchema();
                       src={latestPost.data.image}
                       alt={latestPost.data.title}
                       class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-                      width={800}
-                      height={600}
+                      widths={[400, 800, 1200]}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
                     />
                   ))}
               </div>

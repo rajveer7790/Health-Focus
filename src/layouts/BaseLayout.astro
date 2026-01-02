@@ -40,6 +40,26 @@ const { title, description, image, schema, keywords } = Astro.props;
       schema={schema}
       keywords={keywords}
     />
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+    ></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-XXXXXXXXXX");
+    </script>
+
+    <style is:global>
+      /* Ensure fonts display swap to avoid render blocking */
+      @font-face {
+        font-display: swap;
+      }
+    </style>
+
     <script is:inline>
       // Immediate theme initialization to prevent flash
       const theme = (() => {

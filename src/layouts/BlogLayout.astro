@@ -174,9 +174,9 @@ const schema = generateArticleSchema({
                     src={frontmatter.image}
                     alt={frontmatter.title}
                     class="w-full h-[400px] object-cover"
+                    widths={[400, 800, 1200]}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
                     format="webp"
-                    width={1200}
-                    height={600}
                   />
                 )}
               </div>
