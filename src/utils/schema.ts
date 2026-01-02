@@ -80,6 +80,7 @@ export function generateFAQSchema(faqs: FAQItem[]) {
     };
 }
 
+
 export function generateBreadcrumbSchema(items: { name: string; url: string }[]) {
     return {
         '@context': 'https://schema.org',
@@ -90,5 +91,45 @@ export function generateBreadcrumbSchema(items: { name: string; url: string }[])
             name: item.name,
             item: item.url,
         })),
+    };
+}
+
+export function generateWebSiteSchema() {
+    return {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: SITE_CONFIG.title,
+        url: SITE_CONFIG.url,
+        potentialAction: {
+            '@type': 'SearchAction',
+            target: `${SITE_CONFIG.url}/search?q={search_term_string}`,
+            'query-input': 'required name=search_term_string'
+        }
+    };
+}
+
+export function generateCollectionPageSchema({
+    name,
+    description,
+    url
+}: {
+    name: string;
+    description: string;
+    url: string;
+}) {
+    return {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name,
+        description,
+        url,
+        publisher: {
+            '@type': 'Organization',
+            name: SITE_CONFIG.title,
+            logo: {
+                '@type': 'ImageObject',
+                url: `${SITE_CONFIG.url}/logo.png`,
+            }
+        }
     };
 }

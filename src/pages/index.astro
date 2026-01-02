@@ -4,6 +4,7 @@ import BlogCard from "../components/BlogCard.astro";
 import Newsletter from "../components/Newsletter.astro";
 import { getCollection } from "astro:content";
 import { calculateReadingTime } from "../utils/readingTime";
+import { generateWebSiteSchema } from "../utils/schema";
 import { CATEGORIES } from "../utils/seo";
 
 // Get all blog posts
@@ -14,16 +15,20 @@ const publishedPosts = allPosts
   .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 
-// Get featured posts
-const featuredPosts = publishedPosts
-  .filter((post) => post.data.featured)
-  .slice(0, 1);
-const recentPosts = publishedPosts.slice(0, 6);
+// Get featured post (latest 1) and scroll posts (next 5)
+const latestPost = publishedPosts[0];
+const scrollPosts = publishedPosts.slice(1, 6);
+
+// Need Image for type checking if used inline
+import { Image } from "astro:assets";
+
+const schema = generateWebSiteSchema();
 ---
 
 <BaseLayout
   title="Health Focus | Fitness & Wellness Blog for Sustainable Healthy Living"
-  description="Discover practical fitness tips, nutrition advice, and wellness strategies for building sustainable healthy habits. Evidence-based guidance for real life—no quick fixes or fads."
+  description="Discover practical fitness tips, nutrition advice, and sustainable wellness strategies. Evidence-based guidance for real life—no quick fixes or fads."
+  schema={schema}
   keywords={[
     "sustainable fitness habits",
     "wellness lifestyle blog",
@@ -33,176 +38,172 @@ const recentPosts = publishedPosts.slice(0, 6);
     "evidence-based fitness",
   ]}
 >
-  <!-- Hero Section -->
-  <section
-    class="section-padding min-h-[85vh] flex items-center justify-center bg-gradient-to-br from-primary-50 via-white to-accent-50 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-800 relative overflow-hidden transition-colors duration-300"
-  >
-    <!-- Animated Background Elements -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none">
-      <div
-        class="absolute top-20 left-10 w-72 h-72 bg-primary-300/20 dark:bg-primary-900/10 rounded-full blur-3xl animate-float"
-      >
-      </div>
-      <div
-        class="absolute bottom-20 right-10 w-96 h-96 bg-accent-300/20 dark:bg-accent-900/10 rounded-full blur-3xl animate-float"
-        style="animation-delay: 1s;"
-      >
-      </div>
-    </div>
-
-    <div class="container-custom relative z-10">
-      <div class="max-w-4xl mx-auto text-center">
+  <!-- Hero Section (Latest Post) -->
+  <section class="pt-8 pb-8 md:pt-20 md:pb-16 bg-white dark:bg-neutral-900">
+    <div class="container-custom">
+      <div class="mb-6 md:mb-12">
+        <span
+          class="text-xs md:text-sm font-bold tracking-wider text-primary-600 dark:text-primary-400 uppercase mb-2 block"
+        >
+          Featured Article
+        </span>
         <h1
-          class="font-display font-bold text-5xl md:text-6xl lg:text-7xl mb-6 animate-slide-up text-neutral-900 dark:text-white"
+          class="font-display font-bold text-3xl md:text-5xl lg:text-6xl text-neutral-900 dark:text-white mb-4 md:mb-6"
         >
-          Building Sustainable
-          <span class="gradient-text">Fitness & Wellness Habits</span>
-          for Real Life
+          Latest from <span class="text-primary-600 dark:text-primary-400"
+            >Health Focus</span
+          >
         </h1>
-
-        <p
-          class="text-xl md:text-2xl text-neutral-600 dark:text-neutral-300 mb-8 max-w-3xl mx-auto animate-slide-up text-balance"
-          style="animation-delay: 0.1s;"
-        >
-          Evidence-based guidance for busy people who want to get fit, stay
-          healthy, and build habits that actually stick. No quick fixes—just
-          practical strategies that work for your lifestyle.
-        </p>
-
-        <div
-          class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up"
-          style="animation-delay: 0.2s;"
-        >
-          <a href="/blog" class="btn btn-primary text-lg px-8 py-4">
-            Explore Latest Articles
-            <svg
-              class="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-            </svg>
-          </a>
-          <a href="#newsletter" class="btn btn-secondary text-lg px-8 py-4">
-            Get Weekly Wellness Tips
-          </a>
-        </div>
-
-        <!-- Trust Signals -->
-        <div
-          class="mt-12 flex flex-wrap items-center justify-center gap-8 text-sm text-neutral-600 dark:text-neutral-400 animate-fade-in transition-colors duration-300"
-          style="animation-delay: 0.3s;"
-        >
-          <div class="flex items-center gap-2">
-            <svg
-              class="w-5 h-5 text-success-600 dark:text-success-500"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            <span>Evidence-Based</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <svg
-              class="w-5 h-5 text-success-600 dark:text-success-500"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            <span>Practical Advice</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <svg
-              class="w-5 h-5 text-success-600 dark:text-success-500"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            <span>No Medical Claims</span>
-          </div>
-        </div>
       </div>
+
+      {
+        latestPost && (
+          <div class="group relative rounded-2xl md:rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800">
+            <a
+              href={`/blog/${latestPost.slug}`}
+              class="block grid md:grid-cols-2 gap-0"
+            >
+              <div class="relative h-56 md:h-full min-h-[250px] md:min-h-[400px] overflow-hidden">
+                {latestPost.data.image &&
+                  (typeof latestPost.data.image === "string" ? (
+                    <img
+                      src={latestPost.data.image}
+                      alt={latestPost.data.title}
+                      class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                    />
+                  ) : (
+                    <Image
+                      src={latestPost.data.image}
+                      alt={latestPost.data.title}
+                      class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                      width={800}
+                      height={600}
+                    />
+                  ))}
+              </div>
+              <div class="p-5 md:p-12 lg:p-16 flex flex-col justify-center">
+                <div class="flex items-center gap-2 mb-3 md:mb-6">
+                  <span class="px-2.5 py-0.5 md:px-3 md:py-1 rounded-full bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs md:text-sm font-bold tracking-wide uppercase">
+                    {CATEGORIES.find((c) => c.slug === latestPost.data.category)
+                      ?.name || latestPost.data.category}
+                  </span>
+                  <span class="text-neutral-500 text-xs md:text-sm">
+                    {calculateReadingTime(latestPost.body)} min read
+                  </span>
+                </div>
+                <h2 class="font-display font-bold text-xl md:text-3xl lg:text-4xl text-neutral-900 dark:text-white mb-3 md:mb-6 leading-tight group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                  {latestPost.data.title}
+                </h2>
+                <p class="text-neutral-600 dark:text-neutral-400 text-sm md:text-lg mb-4 md:mb-8 line-clamp-3 md:line-clamp-4 leading-relaxed">
+                  {latestPost.data.description}
+                </p>
+                <div class="flex items-center gap-2 md:gap-3">
+                  <span class="font-semibold text-sm md:text-base text-neutral-900 dark:text-neutral-200 border-b-2 border-primary-500 pb-0.5">
+                    Read Article
+                  </span>
+                  <svg
+                    class="w-4 h-4 md:w-5 md:h-5 text-primary-500 transform group-hover:translate-x-1 transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </a>
+          </div>
+        )
+      }
     </div>
   </section>
 
-  <!-- Latest Articles Section -->
+  <!-- Recent Articles Horizontal Scroll -->
   <section
-    class="section-padding bg-white dark:bg-neutral-950 transition-colors duration-300"
+    class="py-12 md:py-16 bg-white dark:bg-neutral-900 border-t border-neutral-100 dark:border-neutral-800/50"
   >
     <div class="container-custom">
-      <div
-        class="flex flex-col md:flex-row items-end justify-between gap-4 mb-12 border-b border-neutral-200 dark:border-neutral-800 pb-4"
-      >
+      <div class="flex items-end justify-between gap-4 mb-10">
         <div>
-          <h2
-            class="font-display font-bold text-3xl md:text-4xl text-neutral-900 dark:text-white mb-2"
+          <h3
+            class="font-display font-bold text-2xl md:text-3xl text-neutral-900 dark:text-white"
           >
-            Latest from Health Focus
-          </h2>
-          <p class="text-neutral-600 dark:text-neutral-400">
-            Sustainable strategies for real-world fitness and wellness.
-          </p>
+            More to Explore
+          </h3>
         </div>
-        <a
-          href="/blog"
-          class="text-primary-600 dark:text-primary-400 font-semibold hover:text-primary-700 dark:hover:text-primary-300 flex items-center gap-1 transition-colors"
-        >
-          View all
-          <svg
-            class="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            ><path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 5l7 7-7 7"></path></svg
+
+        <!-- Custom Navigation Buttons (Visual cue for scroll) -->
+        <div class="hidden md:flex gap-2">
+          <div
+            class="w-8 h-8 rounded-full border border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-neutral-400"
           >
-        </a>
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"></path></svg
+            >
+          </div>
+          <div
+            class="w-8 h-8 rounded-full border border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-neutral-400"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"></path></svg
+            >
+          </div>
+        </div>
       </div>
 
-      <!-- Simple Grid Layout -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {
-          publishedPosts
-            .slice(0, 6)
-            .map((post) => (
-              <BlogCard
-                title={post.data.title}
-                description={post.data.description}
-                slug={post.slug}
-                category={post.data.category}
-                pubDate={post.data.pubDate}
-                readingTime={calculateReadingTime(post.body)}
-                image={post.data.image}
-                author={post.data.author}
-              />
+      <!-- Horizontal Scroll Layout -->
+      <div class="relative group">
+        <!-- Fade Gradients -->
+        <div
+          class="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-white dark:from-neutral-900 to-transparent z-10 pointer-events-none"
+        >
+        </div>
+        <div
+          class="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-white dark:from-neutral-900 to-transparent z-10 pointer-events-none"
+        >
+        </div>
+
+        <div
+          class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 scroll-pl-4 md:scroll-pl-0"
+        >
+          {
+            scrollPosts.map((post) => (
+              <div class="min-w-[280px] sm:min-w-[350px] md:min-w-[380px] snap-center select-none">
+                <BlogCard
+                  title={post.data.title}
+                  description={post.data.description}
+                  slug={post.slug}
+                  category={post.data.category}
+                  pubDate={post.data.pubDate}
+                  readingTime={calculateReadingTime(post.body)}
+                  image={post.data.image}
+                  author={post.data.author}
+                />
+              </div>
             ))
-        }
+          }
+        </div>
       </div>
     </div>
   </section>
