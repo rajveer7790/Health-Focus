@@ -45,6 +45,286 @@ const { title, description, image, schema, keywords } = Astro.props;
       keywords={keywords}
     />
 
+    <!-- Critical CSS Inline (Above-the-fold) -->
+    <style>
+      /* Critical Base Styles */
+      *,
+      ::before,
+      ::after {
+        box-sizing: border-box;
+        border-width: 0;
+        border-style: solid;
+        border-color: #e5e5e5;
+      }
+      html {
+        line-height: 1.5;
+        -webkit-text-size-adjust: 100%;
+        font-family: Inter, system-ui, sans-serif;
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        background: #fff;
+        color: #171717;
+        transition:
+          background-color 0.3s,
+          color 0.3s;
+      }
+      html.dark body {
+        background: #0a0a0a;
+        color: #fafafa;
+      }
+
+      /* Container */
+      .container-custom {
+        max-width: 80rem;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      @media (min-width: 640px) {
+        .container-custom {
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+        }
+      }
+      @media (min-width: 1024px) {
+        .container-custom {
+          padding-left: 2rem;
+          padding-right: 2rem;
+        }
+      }
+
+      /* Typography */
+      h1,
+      h2 {
+        font-family: Outfit, Inter, sans-serif;
+        font-weight: 700;
+        color: #171717;
+        letter-spacing: -0.025em;
+      }
+      html.dark h1,
+      html.dark h2 {
+        color: #fff;
+      }
+
+      /* Hero Essentials */
+      .pt-8 {
+        padding-top: 2rem;
+      }
+      .pb-8 {
+        padding-bottom: 2rem;
+      }
+      .pt-12 {
+        padding-top: 3rem;
+      }
+      @media (min-width: 768px) {
+        .md\:pt-20 {
+          padding-top: 5rem;
+        }
+        .md\:pb-16 {
+          padding-bottom: 4rem;
+        }
+      }
+
+      .mb-4 {
+        margin-bottom: 1rem;
+      }
+      .mb-6 {
+        margin-bottom: 1.5rem;
+      }
+      @media (min-width: 768px) {
+        .md\:mb-6 {
+          margin-bottom: 1.5rem;
+        }
+        .md\:mb-12 {
+          margin-bottom: 3rem;
+        }
+      }
+
+      /* Flex & Grid */
+      .flex {
+        display: flex;
+      }
+      .grid {
+        display: grid;
+      }
+      .items-center {
+        align-items: center;
+      }
+      .justify-center {
+        justify-content: center;
+      }
+      .gap-2 {
+        gap: 0.5rem;
+      }
+      @media (min-width: 768px) {
+        .md\:grid-cols-2 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      /* Sizing */
+      .w-full {
+        width: 100%;
+      }
+      .h-full {
+        height: 100%;
+      }
+      .min-h-\[250px\] {
+        min-height: 250px;
+      }
+      .h-56 {
+        height: 14rem;
+      }
+      @media (min-width: 768px) {
+        .md\:h-full {
+          height: 100%;
+        }
+        .md\:min-h-\[400px\] {
+          min-height: 400px;
+        }
+      }
+
+      /* Colors */
+      .bg-white {
+        background-color: #fff;
+      }
+      .text-primary-700 {
+        color: #0369a1;
+      }
+      .text-primary-600 {
+        color: #0284c7;
+      }
+      .text-neutral-900 {
+        color: #171717;
+      }
+      html.dark .dark\:bg-neutral-900 {
+        background: #171717;
+      }
+      html.dark .dark\:text-white {
+        color: #fff;
+      }
+      html.dark .dark\:text-primary-400 {
+        color: #38bdf8;
+      }
+
+      /* Text Sizes */
+      .text-xs {
+        font-size: 0.75rem;
+        line-height: 1rem;
+      }
+      .text-sm {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+      }
+      .text-xl {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+      }
+      .text-3xl {
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+      }
+      @media (min-width: 768px) {
+        .md\:text-sm {
+          font-size: 0.875rem;
+        }
+        .md\:text-3xl {
+          font-size: 1.875rem;
+        }
+        .md\:text-5xl {
+          font-size: 3rem;
+        }
+      }
+      @media (min-width: 1024px) {
+        .lg\:text-6xl {
+          font-size: 3.75rem;
+        }
+      }
+
+      /* Utilities */
+      .block {
+        display: block;
+      }
+      .uppercase {
+        text-transform: uppercase;
+      }
+      .font-bold {
+        font-weight: 700;
+      }
+      .tracking-wider {
+        letter-spacing: 0.05em;
+      }
+      .rounded-2xl {
+        border-radius: 1rem;
+      }
+      .rounded-3xl {
+        border-radius: 1.5rem;
+      }
+      .overflow-hidden {
+        overflow: hidden;
+      }
+      .relative {
+        position: relative;
+      }
+      .absolute {
+        position: absolute;
+      }
+      .inset-0 {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+      .object-cover {
+        object-fit: cover;
+      }
+
+      /* Spacing */
+      .p-5 {
+        padding: 1.25rem;
+      }
+      .px-2\.5 {
+        padding-left: 0.625rem;
+        padding-right: 0.625rem;
+      }
+      .py-0\.5 {
+        padding-top: 0.125rem;
+        padding-bottom: 0.125rem;
+      }
+      @media (min-width: 768px) {
+        .md\:p-12 {
+          padding: 3rem;
+        }
+        .md\:px-3 {
+          padding-left: 0.75rem;
+          padding-right: 0.75rem;
+        }
+        .md\:py-1 {
+          padding-top: 0.25rem;
+          padding-bottom: 0.25rem;
+        }
+      }
+      @media (min-width: 1024px) {
+        .lg\:p-16 {
+          padding: 4rem;
+        }
+      }
+
+      /* Hide Scrollbar */
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
     ></script>
