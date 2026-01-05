@@ -8,7 +8,7 @@ const blogCollection = defineCollection({
         pubDate: z.date(),
         updatedDate: z.date().optional(),
         author: z.string().default('Health Focus Team'),
-        category: z.enum(['mental-health', 'nutrition', 'fitness', 'sleep', 'healthy-habits', 'lifestyle']),
+        category: z.enum(['mental-health', 'nutrition', 'fitness', 'sleep', 'healthy-habits', 'lifestyle', 'wellness']),
         tags: z.array(z.string()).default([]),
         image: image().optional(),
         featured: z.boolean().default(false),

@@ -38,174 +38,129 @@ const schema = generateWebSiteSchema();
     "evidence-based fitness",
   ]}
 >
-  <!-- Hero Section (Latest Post) -->
-  <section class="pt-8 pb-8 md:pt-20 md:pb-16 bg-white dark:bg-neutral-900">
-    <div class="container-custom">
-      <div class="mb-6 md:mb-12">
-        <span
-          class="text-xs md:text-sm font-bold tracking-wider text-primary-700 dark:text-primary-400 uppercase mb-2 block"
-        >
-          Featured Article
-        </span>
-        <h1
-          class="font-display font-bold text-3xl md:text-5xl lg:text-6xl text-neutral-900 dark:text-white mb-4 md:mb-6"
-        >
-          Latest from <span class="text-primary-600 dark:text-primary-400"
-            >Health Focus</span
-          >
-        </h1>
-      </div>
-
-      {
-        latestPost && (
-          <div class="group relative rounded-2xl md:rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800">
-            <a
-              href={`/blog/${latestPost.slug}`}
-              class="block grid md:grid-cols-2 gap-0"
-            >
-              <div class="relative h-56 md:h-full min-h-[250px] md:min-h-[400px] overflow-hidden">
-                {latestPost.data.image &&
-                  (typeof latestPost.data.image === "string" ? (
-                    <img
-                      src={latestPost.data.image}
-                      alt={latestPost.data.title}
-                      class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-                    />
-                  ) : (
-                    <Image
-                      src={latestPost.data.image}
-                      alt={latestPost.data.title}
-                      class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-                      widths={[400, 800, 1200]}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
-                      loading="eager"
-                      fetchpriority="high"
-                    />
-                  ))}
-              </div>
-              <div class="p-5 md:p-12 lg:p-16 flex flex-col justify-center">
-                <div class="flex items-center gap-2 mb-3 md:mb-6">
-                  <span class="px-2.5 py-0.5 md:px-3 md:py-1 rounded-full bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs md:text-sm font-bold tracking-wide uppercase">
+  <!-- Hero Section -->
+  <section
+    class="border-b border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900"
+  >
+    <div class="container-custom py-8 md:py-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12">
+        <!-- Main Feature (Left, 8 cols) -->
+        <div class="lg:col-span-8">
+          {
+            latestPost && (
+              <a href={`/blog/${latestPost.slug}`} class="block group">
+                <div class="relative overflow-hidden aspect-[16/9] mb-4 md:mb-6">
+                  {latestPost.data.image &&
+                    (typeof latestPost.data.image === "string" ? (
+                      <img
+                        src={latestPost.data.image}
+                        alt={latestPost.data.title}
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    ) : (
+                      <Image
+                        src={latestPost.data.image}
+                        alt={latestPost.data.title}
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        width={1200}
+                        height={675}
+                        loading="eager"
+                        fetchpriority="high"
+                      />
+                    ))}
+                </div>
+                <div class="flex flex-col gap-2">
+                  <span class="text-primary-700 dark:text-primary-400 font-bold uppercase tracking-wider text-xs md:text-sm">
                     {CATEGORIES.find((c) => c.slug === latestPost.data.category)
                       ?.name || latestPost.data.category}
                   </span>
-                  <span class="text-neutral-500 text-xs md:text-sm">
-                    {calculateReadingTime(latestPost.body)} min read
-                  </span>
+                  <h1 class="font-display font-bold text-3xl md:text-4xl lg:text-5xl text-neutral-900 dark:text-white leading-tight group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors">
+                    {latestPost.data.title}
+                  </h1>
+                  <p class="text-neutral-600 dark:text-neutral-400 text-lg md:text-xl line-clamp-3 mt-2 font-light">
+                    {latestPost.data.description}
+                  </p>
+                  <div class="flex items-center gap-3 text-sm text-neutral-500 mt-4">
+                    <span class="font-bold text-neutral-900 dark:text-neutral-300">
+                      {latestPost.data.author}
+                    </span>
+                    <span>•</span>
+                    <span>
+                      {new Date(latestPost.data.pubDate).toLocaleDateString(
+                        "en-US",
+                        { month: "long", day: "numeric", year: "numeric" },
+                      )}
+                    </span>
+                  </div>
                 </div>
-                <h2 class="font-display font-bold text-xl md:text-3xl lg:text-4xl text-neutral-900 dark:text-white mb-3 md:mb-6 leading-tight group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-                  {latestPost.data.title}
-                </h2>
-                <p class="text-neutral-600 dark:text-neutral-400 text-sm md:text-lg mb-4 md:mb-8 line-clamp-3 md:line-clamp-4 leading-relaxed">
-                  {latestPost.data.description}
-                </p>
-                <div class="flex items-center gap-2 md:gap-3">
-                  <span class="font-semibold text-sm md:text-base text-neutral-900 dark:text-neutral-200 border-b-2 border-primary-500 pb-0.5">
-                    Read Article
-                  </span>
-                  <svg
-                    class="w-4 h-4 md:w-5 md:h-5 text-primary-500 transform group-hover:translate-x-1 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </a>
-          </div>
-        )
-      }
-    </div>
-  </section>
-
-  <!-- Recent Articles Horizontal Scroll -->
-  <section
-    class="py-12 md:py-16 bg-white dark:bg-neutral-900 border-t border-neutral-100 dark:border-neutral-800/50"
-  >
-    <div class="container-custom">
-      <div class="flex items-end justify-between gap-4 mb-10">
-        <div>
-          <h3
-            class="font-display font-bold text-2xl md:text-3xl text-neutral-900 dark:text-white"
-          >
-            More to Explore
-          </h3>
+              </a>
+            )
+          }
         </div>
 
-        <!-- Custom Navigation Buttons (Visual cue for scroll) -->
-        <div class="hidden md:flex gap-2">
-          <div
-            class="w-8 h-8 rounded-full border border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-neutral-400"
+        <!-- Top Stories Sidebar (Right, 4 cols) -->
+        <div
+          class="lg:col-span-4 flex flex-col gap-8 border-l border-neutral-200 dark:border-neutral-800 pl-0 lg:pl-12"
+        >
+          <h3
+            class="font-display font-bold text-xl uppercase tracking-wider border-b-2 border-black dark:border-white pb-2 mb-4 inline-block self-start"
           >
-            <svg
-              class="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              ><path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 19l-7-7 7-7"></path></svg
-            >
-          </div>
+            Top Stories
+          </h3>
           <div
-            class="w-8 h-8 rounded-full border border-neutral-200 dark:border-neutral-700 flex items-center justify-center text-neutral-400"
+            class="flex flex-col divide-y divide-neutral-200 dark:divide-neutral-800"
           >
-            <svg
-              class="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              ><path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 5l7 7-7 7"></path></svg
-            >
+            {
+              scrollPosts.slice(0, 4).map((post) => (
+                <a href={`/blog/${post.slug}`} class="py-6 first:pt-0 group">
+                  <span class="text-primary-700 dark:text-primary-400 font-bold text-xs uppercase tracking-wider mb-2 block">
+                    {CATEGORIES.find((c) => c.slug === post.data.category)
+                      ?.name || post.data.category}
+                  </span>
+                  <h4 class="font-display font-bold text-lg md:text-xl text-neutral-900 dark:text-white leading-snug group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors mb-2">
+                    {post.data.title}
+                  </h4>
+                  <div class="text-sm text-neutral-500">
+                    {new Date(post.data.pubDate).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </div>
+                </a>
+              ))
+            }
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Horizontal Scroll Layout -->
-      <div class="relative group">
-        <!-- Fade Gradients -->
-        <div
-          class="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-white dark:from-neutral-900 to-transparent z-10 pointer-events-none"
-        >
-        </div>
-        <div
-          class="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-white dark:from-neutral-900 to-transparent z-10 pointer-events-none"
-        >
-        </div>
+  <!-- Latest Articles Grid -->
+  <section class="py-12 md:py-16 bg-white dark:bg-neutral-900">
+    <div class="container-custom">
+      <h3
+        class="font-display font-bold text-2xl md:text-3xl text-neutral-900 dark:text-white mb-8 md:mb-12 border-b border-neutral-200 dark:border-neutral-800 pb-4"
+      >
+        More News
+      </h3>
 
-        <div
-          class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 scroll-pl-4 md:scroll-pl-0"
-        >
-          {
-            scrollPosts.map((post) => (
-              <div class="min-w-[280px] sm:min-w-[350px] md:min-w-[380px] snap-center select-none">
-                <BlogCard
-                  title={post.data.title}
-                  description={post.data.description}
-                  slug={post.slug}
-                  category={post.data.category}
-                  pubDate={post.data.pubDate}
-                  readingTime={calculateReadingTime(post.body)}
-                  image={post.data.image}
-                  author={post.data.author}
-                />
-              </div>
-            ))
-          }
-        </div>
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12"
+      >
+        {
+          scrollPosts.map((post) => (
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              slug={post.slug}
+              category={post.data.category}
+              pubDate={post.data.pubDate}
+              readingTime={calculateReadingTime(post.body)}
+              image={post.data.image}
+              author={post.data.author}
+            />
+          ))
+        }
       </div>
     </div>
   </section>

@@ -8,7 +8,7 @@ const currentPath = Astro.url.pathname;
 ---
 
 <header
-  class="sticky top-0 z-50 bg-white/95 dark:bg-neutral-900/95 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-xl"
+  class="sticky top-0 z-50 bg-white dark:bg-neutral-900 border-b-2 border-primary-600 dark:border-primary-500"
 >
   <nav class="container-custom">
     <div class="flex items-center justify-between h-16 md:h-20">
@@ -23,23 +23,22 @@ const currentPath = Astro.url.pathname;
           loading="eager"
         />
         <span
-          class="font-display font-bold text-xl hidden sm:block gradient-text"
+          class="font-display font-bold text-2xl md:text-3xl tracking-tight text-neutral-900 dark:text-white"
         >
           Health Focus
         </span>
       </a>
 
-      <!-- Desktop Navigation -->
       <div class="hidden md:flex items-center gap-8">
         <a
           href="/"
-          class={`font-semibold transition-all hover:underline underline-offset-4 decoration-2 decoration-primary-500 ${currentPath === "/" ? "text-primary-600 dark:text-primary-400" : "text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400"}`}
+          class={`font-bold uppercase tracking-wide text-sm transition-colors decoration-2 underline-offset-4 ${currentPath === "/" ? "text-primary-700 underline" : "text-neutral-900 hover:underline hover:text-primary-700 dark:text-white dark:hover:text-primary-400"}`}
         >
           Home
         </a>
         <a
           href="/blog"
-          class={`font-semibold transition-all hover:underline underline-offset-4 decoration-2 decoration-primary-500 ${currentPath.startsWith("/blog") ? "text-primary-600 dark:text-primary-400" : "text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400"}`}
+          class={`font-bold uppercase tracking-wide text-sm transition-colors decoration-2 underline-offset-4 ${currentPath.startsWith("/blog") ? "text-primary-700 underline" : "text-neutral-900 hover:underline hover:text-primary-700 dark:text-white dark:hover:text-primary-400"}`}
         >
           Blog
         </a>
@@ -47,7 +46,7 @@ const currentPath = Astro.url.pathname;
         <!-- Categories Dropdown -->
         <div class="relative group">
           <button
-            class="font-semibold text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center gap-1 hover:underline underline-offset-4 decoration-2 decoration-primary-500"
+            class="font-bold uppercase tracking-wide text-sm text-neutral-900 dark:text-white hover:text-primary-700 dark:hover:text-primary-400 transition-colors flex items-center gap-1"
           >
             Categories
             <svg
@@ -64,17 +63,16 @@ const currentPath = Astro.url.pathname;
             </svg>
           </button>
           <div
-            class="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-neutral-800 backdrop-blur-lg rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 border border-neutral-200 dark:border-neutral-700"
+            class="absolute top-full left-0 mt-0 w-56 bg-white dark:bg-neutral-900 border border-neutral-900 dark:border-neutral-700 shadow-none opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50 p-0"
           >
-            <div class="p-2">
+            <div class="flex flex-col">
               {
                 CATEGORIES.map((category) => (
                   <a
                     href={`/category/${category.slug}`}
-                    class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                    class="flex items-center gap-3 px-6 py-4 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors border-b border-neutral-100 dark:border-neutral-800 last:border-none"
                   >
-                    <span class="text-2xl">{category.icon}</span>
-                    <span class="font-medium text-neutral-700 dark:text-neutral-200">
+                    <span class="font-bold text-sm text-neutral-900 dark:text-white">
                       {category.name}
                     </span>
                   </a>
@@ -86,13 +84,13 @@ const currentPath = Astro.url.pathname;
 
         <a
           href="/about"
-          class={`font-semibold transition-all hover:underline underline-offset-4 decoration-2 decoration-primary-500 ${currentPath === "/about" ? "text-primary-600 dark:text-primary-400" : "text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400"}`}
+          class={`font-bold uppercase tracking-wide text-sm transition-colors decoration-2 underline-offset-4 ${currentPath === "/about" ? "text-primary-700 underline" : "text-neutral-900 hover:underline hover:text-primary-700 dark:text-white dark:hover:text-primary-400"}`}
         >
           About
         </a>
         <a
           href="/contact"
-          class={`font-semibold transition-all hover:underline underline-offset-4 decoration-2 decoration-primary-500 ${currentPath === "/contact" ? "text-primary-600 dark:text-primary-400" : "text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400"}`}
+          class={`font-bold uppercase tracking-wide text-sm transition-colors decoration-2 underline-offset-4 ${currentPath === "/contact" ? "text-primary-700 underline" : "text-neutral-900 hover:underline hover:text-primary-700 dark:text-white dark:hover:text-primary-400"}`}
         >
           Contact
         </a>
@@ -137,7 +135,12 @@ const currentPath = Astro.url.pathname;
         </button>
 
         <!-- Subscribe Button -->
-        <a href="#newsletter" class="btn btn-primary text-sm"> Subscribe </a>
+        <a
+          href="#newsletter"
+          class="px-5 py-2 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 font-bold text-sm tracking-wide uppercase hover:bg-primary-700 dark:hover:bg-neutral-200 transition-colors"
+        >
+          Subscribe
+        </a>
       </div>
 
       <!-- Mobile Menu Button -->
