@@ -14,9 +14,27 @@ interface Props {
   image?: string;
   schema?: any;
   keywords?: string | string[];
+  article?: boolean;
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
+  tags?: string[];
+  noindex?: boolean;
 }
 
-const { title, description, image, schema, keywords } = Astro.props;
+const {
+  title,
+  description,
+  image,
+  article = false,
+  publishedTime,
+  modifiedTime,
+  author,
+  tags = [],
+  schema,
+  keywords,
+  noindex = false,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -43,8 +61,14 @@ const { title, description, image, schema, keywords } = Astro.props;
       title={title}
       description={description}
       image={image}
+      article={article}
+      publishedTime={publishedTime}
+      modifiedTime={modifiedTime}
+      author={author}
+      tags={tags}
       schema={schema}
       keywords={keywords}
+      noindex={noindex}
     />
 
     <!-- Critical CSS Inline (Above-the-fold) -->
