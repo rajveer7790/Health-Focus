@@ -1,69 +1,83 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionDivider from "../components/SectionDivider.astro";
 ---
 
-<BaseLayout title="About Us">
-  <section class="section-padding">
+<BaseLayout title="About Us | Health Focus">
+  <section class="py-12 bg-white dark:bg-neutral-900">
     <div class="container-custom max-w-4xl">
-      <h1 class="font-display font-bold text-4xl md:text-5xl lg:text-6xl mb-8 text-center">
-        About Health & Wellness
-      </h1>
+      <div class="text-center mb-12">
+        <h1
+          class="font-display font-bold text-4xl md:text-5xl lg:text-6xl mb-6 text-neutral-900 dark:text-white"
+        >
+          About Health Focus
+        </h1>
+        <p
+          class="text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto"
+        >
+          Empowering you with practical wellness advice grounded in science.
+        </p>
+      </div>
 
       <div class="prose-custom">
-        <h2>Our Mission</h2>
-        <p>
-          We believe that everyone deserves access to trustworthy, evidence-based health information. 
-          Our mission is to empower you with practical wellness advice that's grounded in science and 
-          easy to implement in your daily life.
+        <SectionDivider title="Our Mission" color="red" />
+        <p
+          class="text-lg leading-relaxed text-neutral-800 dark:text-neutral-200 mb-8"
+        >
+          We believe that everyone deserves access to trustworthy,
+          evidence-based health information. Our mission is to empower you with
+          practical wellness advice that's grounded in science and easy to
+          implement in your daily life.
         </p>
 
-        <h2>Our Approach</h2>
-        <p>
-          Every article we publish is carefully researched and based on current scientific evidence. 
-          We focus on:
+        <SectionDivider title="Our Approach" />
+        <p class="mb-4 text-neutral-700 dark:text-neutral-300">
+          Every article we publish is carefully researched and based on current
+          scientific evidence. We focus on:
         </p>
-        <ul>
-          <li><strong>Evidence-Based Content</strong>: All advice is backed by peer-reviewed research</li>
-          <li><strong>Practical Application</strong>: Tips you can actually use in real life</li>
-          <li><strong>Realistic Expectations</strong>: No quick fixes or miracle cures</li>
-          <li><strong>Transparency</strong>: Clear about what we know and don't know</li>
+        <ul
+          class="list-disc pl-6 space-y-2 mb-8 text-neutral-700 dark:text-neutral-300"
+        >
+          <li>
+            <strong>Evidence-Based Content</strong>: All advice is backed by
+            peer-reviewed research
+          </li>
+          <li>
+            <strong>Practical Application</strong>: Tips you can actually use in
+            real life
+          </li>
+          <li>
+            <strong>Realistic Expectations</strong>: No quick fixes or miracle
+            cures
+          </li>
+          <li>
+            <strong>Transparency</strong>: Clear about what we know and don't
+            know
+          </li>
         </ul>
 
-        <h2>What We Cover</h2>
-        <p>
-          Our content spans multiple areas of health and wellness:
-        </p>
-        <ul>
-          <li>Mental health and emotional wellbeing</li>
-          <li>Nutrition and healthy eating habits</li>
-          <li>Fitness and physical activity</li>
-          <li>Sleep hygiene and rest</li>
-          <li>Preventive health measures</li>
-          <li>Sustainable lifestyle changes</li>
-        </ul>
-
-        <h2>Important Disclaimer</h2>
-        <div class="p-6 bg-amber-50 border-l-4 border-amber-500 rounded-r-xl my-6">
-          <p class="text-amber-900 font-medium">
-            We are not medical professionals. This website provides general health information for 
-            educational purposes only. Always consult with a qualified healthcare provider before 
-            making any health decisions or starting any treatment program.
+        <SectionDivider title="Editorial Standards" />
+        <div
+          class="p-6 bg-neutral-50 dark:bg-neutral-800 border-l-4 border-primary-600 my-6"
+        >
+          <p class="text-neutral-900 dark:text-white font-medium">
+            We are committed to the highest standards of journalism and
+            information accuracy. Our content is reviewed by medical
+            professionals where applicable.
           </p>
         </div>
 
-        <h2>Our Values</h2>
-        <ul>
-          <li><strong>Integrity</strong>: We never make false claims or promote unproven treatments</li>
-          <li><strong>Accessibility</strong>: Health information should be easy to understand</li>
-          <li><strong>Inclusivity</strong>: Wellness advice for everyone, regardless of background</li>
-          <li><strong>Continuous Learning</strong>: We update our content as new research emerges</li>
-        </ul>
-
-        <h2>Get in Touch</h2>
-        <p>
-          Have questions or suggestions? We'd love to hear from you. 
-          <a href="/contact">Contact us here</a>.
-        </p>
+        <SectionDivider title="Disclaimer" />
+        <div
+          class="p-6 bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 rounded-lg my-6"
+        >
+          <p class="text-red-900 dark:text-red-200 font-medium text-sm">
+            We are not medical professionals. This website provides general
+            health information for educational purposes only. Always consult
+            with a qualified healthcare provider before making any health
+            decisions or starting any treatment program.
+          </p>
+        </div>
       </div>
     </div>
   </section>

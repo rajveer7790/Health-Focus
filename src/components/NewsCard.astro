@@ -1,0 +1,213 @@
+---
+import { Image } from "astro:assets";
+import { CATEGORIES } from "../utils/seo";
+
+interface Props {
+    post: any; // CollectionEntry<"blog"> type but loose for flexibility
+    variant?:
+        | "default"
+        | "horizontal"
+        | "text-only"
+        | "hero"
+        | "compact"
+        | "overlay";
+    class?: string;
+    imagePriority?: boolean; // For LCP optimization
+}
+
+const {
+    post,
+    variant = "default",
+    class: className = "",
+    imagePriority = false,
+} = Astro.props;
+
+const category = CATEGORIES.find((c) => c.slug === post.data.category);
+const categoryName = category?.name || post.data.category;
+
+const formattedDate = new Date(post.data.pubDate).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+});
+---
+
+<a href={`/blog/${post.slug}`} class={`group block ${className}`}>
+    {/* VARIANT: HERO (Large image, headline below) */}
+    {
+        variant === "hero" && (
+            <div class="flex flex-col gap-4">
+                <div class="relative aspect-video w-full overflow-hidden">
+                    {post.data.image && (
+                        <Image
+                            src={post.data.image}
+                            alt={post.data.title}
+                            width={800}
+                            height={450}
+                            class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            loading={imagePriority ? "eager" : "lazy"}
+                            fetchpriority={imagePriority ? "high" : "auto"}
+                        />
+                    )}
+                </div>
+                <div class="flex flex-col gap-2">
+                    <div class="flex items-center gap-2">
+                        <span class="text-primary-700 dark:text-primary-500 font-bold uppercase text-xs tracking-wider">
+                            {categoryName}
+                        </span>
+                        {post.data.updatedDate && (
+                            <span class="bg-red-600 text-white text-[10px] uppercase font-bold px-1 py-0.5 rounded-sm">
+                                Live
+                            </span>
+                        )}
+                    </div>
+                    <h2 class="font-display font-bold text-3xl md:text-4xl lg:text-5xl leading-tight text-neutral-900 dark:text-white group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors">
+                        {post.data.title}
+                    </h2>
+                    <p class="text-neutral-600 dark:text-neutral-300 text-lg md:text-xl line-clamp-3">
+                        {post.data.description}
+                    </p>
+                    <div class="text-xs text-neutral-500 mt-2 font-bold uppercase tracking-wider">
+                        By {post.data.author}
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    {/* VARIANT: DEFAULT (Standard card: Image top, text bottom) */}
+    {
+        variant === "default" && (
+            <div class="flex flex-col gap-3 h-full">
+                <div class="relative aspect-[3/2] w-full overflow-hidden">
+                    {post.data.image && (
+                        <Image
+                            src={post.data.image}
+                            alt={post.data.title}
+                            width={600}
+                            height={400}
+                            class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            loading="lazy"
+                        />
+                    )}
+                </div>
+                <div class="flex flex-col gap-1.5 flex-1">
+                    <span class="text-primary-700 dark:text-primary-500 font-bold uppercase text-xs tracking-wider">
+                        {categoryName}
+                    </span>
+                    <h3 class="font-display font-bold text-xl md:text-2xl leading-snug text-neutral-900 dark:text-white group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors">
+                        {post.data.title}
+                    </h3>
+                    <p class="text-neutral-600 dark:text-neutral-400 text-sm md:text-base line-clamp-2">
+                        {post.data.description}
+                    </p>
+                    <span class="text-xs text-neutral-400 mt-auto pt-2">
+                        {formattedDate}
+                    </span>
+                </div>
+            </div>
+        )
+    }
+
+    {/* VARIANT: HORIZONTAL (Image Left, Text Right) */}
+    {
+        variant === "horizontal" && (
+            <div class="flex gap-4 items-start">
+                <div class="relative w-1/3 aspect-[4/3] overflow-hidden flex-shrink-0">
+                    {post.data.image && (
+                        <Image
+                            src={post.data.image}
+                            alt={post.data.title}
+                            width={300}
+                            height={225}
+                            class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            loading="lazy"
+                        />
+                    )}
+                </div>
+                <div class="flex flex-col gap-1">
+                    <h3 class="font-display font-bold text-lg leading-tight text-neutral-900 dark:text-white group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors">
+                        {post.data.title}
+                    </h3>
+                    <span class="text-xs text-neutral-500 font-medium">
+                        {formattedDate}
+                    </span>
+                </div>
+            </div>
+        )
+    }
+
+    {/* VARIANT: COMPACT (Small image left, text right, very tight) */}
+    {/* Used for "More Top Stories" sidebars */}
+    {
+        variant === "compact" && (
+            <div class="flex gap-3 items-start py-3 border-t border-neutral-100 dark:border-neutral-800 first:border-0 first:pt-0">
+                <div class="relative w-24 aspect-video overflow-hidden flex-shrink-0">
+                    {post.data.image && (
+                        <Image
+                            src={post.data.image}
+                            alt={post.data.title}
+                            width={150}
+                            height={100}
+                            class="h-full w-full object-cover"
+                            loading="lazy"
+                        />
+                    )}
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-primary-700 dark:text-primary-500 font-bold uppercase text-[10px] tracking-wider mb-0.5">
+                        {categoryName}
+                    </span>
+                    <h4 class="font-display font-bold text-sm leading-tight text-neutral-900 dark:text-white group-hover:underline decoration-2 underline-offset-2">
+                        {post.data.title}
+                    </h4>
+                </div>
+            </div>
+        )
+    }
+
+    {/* VARIANT: TEXT ONLY (Headline, maybe excerpt) */}
+    {
+        variant === "text-only" && (
+            <div class="flex flex-col gap-1 py-3 border-t border-neutral-100 dark:border-neutral-800 first:border-0 first:pt-0">
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-primary-600" />
+                    <span class="text-xs uppercase font-bold text-neutral-500">
+                        {categoryName}
+                    </span>
+                </div>
+                <h3 class="font-display font-bold text-lg leading-snug text-neutral-900 dark:text-white group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors">
+                    {post.data.title}
+                </h3>
+            </div>
+        )
+    }
+
+    {/* VARIANT: OVERLAY (Image background, text overlay) */}
+    {
+        variant === "overlay" && (
+            <div class="relative aspect-[3/4] overflow-hidden w-full">
+                <div class="absolute inset-0 bg-neutral-900">
+                    {post.data.image && (
+                        <Image
+                            src={post.data.image}
+                            alt={post.data.title}
+                            width={400}
+                            height={600}
+                            class="h-full w-full object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-300"
+                        />
+                    )}
+                    {/* Gradient overlay */}
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90" />
+                </div>
+                <div class="absolute bottom-0 left-0 p-4 text-white">
+                    <span class="bg-primary-600 text-white text-[10px] font-bold uppercase px-1.5 py-0.5 mb-2 inline-block">
+                        {categoryName}
+                    </span>
+                    <h3 class="font-display font-bold text-xl leading-tight text-shadow-sm">
+                        {post.data.title}
+                    </h3>
+                </div>
+            </div>
+        )
+    }
+</a>

@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import Newsletter from "../components/Newsletter.astro";
-import BlogCard from "../components/BlogCard.astro";
+import NewsCard from "../components/NewsCard.astro";
 import { formatDate } from "../utils/formatDate";
 import { generateArticleSchema } from "../utils/schema";
 import { getRelatedPosts } from "../utils/relatedPosts";
@@ -211,21 +211,13 @@ const schema = generateArticleSchema({
     <!-- Related Posts -->
     {
       relatedPosts.length > 0 && (
-        <section class="container-custom mt-24 mb-12">
-          <h2 class="font-display font-bold text-3xl mb-8 border-b border-neutral-200 pb-4">
+        <section class="container-custom mt-16 lg:mt-24 mb-12 border-t border-neutral-200 dark:border-neutral-800 pt-12">
+          <h2 class="font-display font-bold text-3xl mb-8 border-l-4 border-primary-600 pl-4 py-1">
             Read Next
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             {relatedPosts.map((post) => (
-              <BlogCard
-                title={post.data.title}
-                description={post.data.description}
-                slug={post.slug}
-                category={post.data.category}
-                pubDate={post.data.pubDate}
-                readingTime={calculateReadingTime(post.body)}
-                image={post.data.image}
-              />
+              <NewsCard post={post} variant="default" />
             ))}
           </div>
         </section>

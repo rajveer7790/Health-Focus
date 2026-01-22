@@ -1,51 +1,48 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import BlogCard from '../../components/BlogCard.astro';
-import Newsletter from '../../components/Newsletter.astro';
-import { getCollection } from 'astro:content';
-import { calculateReadingTime } from '../../utils/readingTime';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import NewsCard from "../../components/NewsCard.astro";
+import SectionDivider from "../../components/SectionDivider.astro";
+import Newsletter from "../../components/Newsletter.astro";
+import { getCollection } from "astro:content";
 
 // Get all blog posts
-const allPosts = await getCollection('blog');
+const allPosts = await getCollection("blog");
 
 // Filter out drafts and sort by date
 const publishedPosts = allPosts
-  .filter(post => !post.data.draft)
+  .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 ---
 
-<BaseLayout title="Blog">
-  <section class="section-padding">
+<BaseLayout title="Health & Wellness News | Health Focus">
+  <section class="py-12 bg-white dark:bg-neutral-900">
     <div class="container-custom">
-      <div class="text-center mb-16">
-        <h1 class="font-display font-bold text-4xl md:text-5xl lg:text-6xl mb-6">
-          Health & Wellness Blog
+      <div class="mb-12 text-center max-w-3xl mx-auto">
+        <h1 class="font-display font-bold text-4xl md:text-5xl mb-4">
+          Health & Wellness News
         </h1>
-        <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
-          Evidence-based articles on mental health, nutrition, fitness, sleep, and healthy lifestyle habits
+        <p class="text-xl text-neutral-600 dark:text-neutral-400">
+          Latest breaking news, evidence-based guides, and expert perspectives.
         </p>
       </div>
 
-      {publishedPosts.length > 0 ? (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {publishedPosts.map((post) => (
-            <BlogCard
-              title={post.data.title}
-              description={post.data.description}
-              slug={post.slug}
-              category={post.data.category}
-              pubDate={post.data.pubDate}
-              readingTime={calculateReadingTime(post.body)}
-              image={post.data.image}
-              featured={post.data.featured}
-            />
-          ))}
-        </div>
-      ) : (
-        <div class="text-center py-16">
-          <p class="text-xl text-neutral-600">No blog posts yet. Check back soon!</p>
-        </div>
-      )}
+      <SectionDivider title="All Articles" color="black" />
+
+      {
+        publishedPosts.length > 0 ? (
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+            {publishedPosts.map((post) => (
+              <NewsCard post={post} variant="default" />
+            ))}
+          </div>
+        ) : (
+          <div class="text-center py-24 bg-neutral-50 dark:bg-neutral-800 rounded-lg">
+            <p class="text-xl text-neutral-600 dark:text-neutral-400">
+              No articles found.
+            </p>
+          </div>
+        )
+      }
     </div>
   </section>
 

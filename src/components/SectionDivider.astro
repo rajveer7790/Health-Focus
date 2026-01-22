@@ -1,0 +1,22 @@
+---
+interface Props {
+    title: string;
+    color?: "red" | "black";
+}
+
+const { title, color = "black" } = Astro.props;
+
+const colorClasses =
+    color === "red"
+        ? "border-primary-600 text-primary-700 dark:text-primary-500"
+        : "border-neutral-900 dark:border-white text-neutral-900 dark:text-white";
+---
+
+<div class="relative flex items-center mb-6 mt-12 md:mt-16">
+    <h2
+        class={`font-display font-bold text-2xl uppercase tracking-tighter pr-4 border-l-4 pl-3 ${colorClasses}`}
+    >
+        {title}
+    </h2>
+    <div class="flex-grow h-px bg-neutral-200 dark:bg-neutral-800"></div>
+</div>

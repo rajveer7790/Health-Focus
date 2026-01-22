@@ -12,7 +12,10 @@ export const CATEGORIES = [
     { name: 'Nutrition', slug: 'nutrition', icon: '🥗', color: 'success' },
     { name: 'Fitness', slug: 'fitness', icon: '💪', color: 'accent' },
     { name: 'Sleep', slug: 'sleep', icon: '😴', color: 'primary' },
-    { name: 'Healthy Habits', slug: 'healthy-habits', icon: '✨', color: 'accent' },
+    { name: 'Women\'s Health', slug: 'womens-health', icon: '🌸', color: 'accent' },
+    { name: 'Longevity', slug: 'longevity', icon: '⏳', color: 'success' },
+    { name: 'Gut Health', slug: 'gut-health', icon: '🦠', color: 'primary' },
+    { name: 'Biohacking', slug: 'biohacking', icon: '⚡', color: 'accent' },
     { name: 'Lifestyle', slug: 'lifestyle', icon: '🌟', color: 'success' },
 ];
 
