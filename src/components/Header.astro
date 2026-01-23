@@ -51,11 +51,17 @@ const dateString = today.toLocaleDateString("en-US", {
               height={80}
               loading="eager"
             />
-            <span
-              class="font-display font-bold text-3xl md:text-4xl tracking-tighter text-primary-600 dark:text-primary-500"
-            >
-              Health Focus
-            </span>
+            {
+              currentPath === "/" ? (
+                <h1 class="font-display font-bold text-3xl md:text-4xl tracking-tighter text-primary-600 dark:text-primary-500">
+                  Health Focus
+                </h1>
+              ) : (
+                <span class="font-display font-bold text-3xl md:text-4xl tracking-tighter text-primary-600 dark:text-primary-500">
+                  Health Focus
+                </span>
+              )
+            }
           </a>
         </div>
 
@@ -128,7 +134,7 @@ const dateString = today.toLocaleDateString("en-US", {
         {
           CATEGORIES.slice(0, 8).map((category) => (
             <a
-              href={`/category/${category.slug}`}
+              href={`/category/${category.slug}/`}
               class={`px-4 py-3 text-sm font-bold uppercase tracking-wider border-b-4 transition-colors ${currentPath.includes(category.slug) ? "border-white bg-primary-700 dark:bg-neutral-700" : "border-transparent hover:bg-primary-700 dark:hover:bg-neutral-700 hover:border-primary-400"}`}
             >
               {category.name}
@@ -178,7 +184,7 @@ const dateString = today.toLocaleDateString("en-US", {
         {
           CATEGORIES.map((category) => (
             <a
-              href={`/category/${category.slug}`}
+              href={`/category/${category.slug}/`}
               class="block px-4 py-3 text-lg font-medium border-b border-neutral-100 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400"
             >
               {category.name}
@@ -186,12 +192,12 @@ const dateString = today.toLocaleDateString("en-US", {
           ))
         }
         <a
-          href="/about"
+          href="/about/"
           class="block px-4 py-3 text-lg font-bold text-neutral-900 dark:text-white"
           >About Us</a
         >
         <a
-          href="/contact"
+          href="/contact/"
           class="block px-4 py-3 text-lg font-bold text-neutral-900 dark:text-white"
           >Contact</a
         >

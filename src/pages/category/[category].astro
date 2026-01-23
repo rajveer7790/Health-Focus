@@ -32,7 +32,11 @@ const schema = generateCollectionPageSchema({
 });
 ---
 
-<BaseLayout title={`${category.name} News | Health Focus`} schema={schema}>
+<BaseLayout
+  title={`${category.name} News | Health Focus`}
+  description={schema.description}
+  schema={schema}
+>
   <section class="py-12 bg-white dark:bg-neutral-900">
     <div class="container-custom">
       <div class="flex items-center gap-4 mb-8">
