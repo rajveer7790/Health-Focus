@@ -19,7 +19,12 @@ const blogCollection = defineCollection({
             'longevity',
             'gut-health',
             'biohacking',
-            'womens-health'
+            'womens-health',
+            'hormone-health',
+            'metabolic-health',
+            'nervous-system',
+            'skin-longevity',
+            'mens-health'
         ]),
         tags: z.array(z.string()).default([]),
         image: image().optional(),

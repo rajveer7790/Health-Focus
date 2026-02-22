@@ -5,13 +5,7 @@ import logoImage from "../assets/images/logo.png";
 
 const currentPath = Astro.url.pathname;
 
-const today = new Date();
-const dateString = today.toLocaleDateString("en-US", {
-  weekday: "long",
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-});
+// Date is now rendered client-side for accuracy (see script below)
 ---
 
 <header class="relative bg-white dark:bg-neutral-900 z-50">
@@ -68,10 +62,9 @@ const dateString = today.toLocaleDateString("en-US", {
         <!-- Desktop: Date & Utilities -->
         <div class="hidden md:flex items-center gap-6">
           <span
+            id="live-date"
             class="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400"
-          >
-            {dateString}
-          </span>
+          ></span>
           <div class="h-4 w-px bg-neutral-300 dark:bg-neutral-700"></div>
           <div class="flex items-center gap-4">
             <button
@@ -121,21 +114,21 @@ const dateString = today.toLocaleDateString("en-US", {
     class="sticky top-0 z-40 bg-primary-600 dark:bg-neutral-800 text-white shadow-md"
   >
     <div class="container-custom">
-      <nav class="hidden md:flex items-center">
+      <nav class="hidden md:flex items-center overflow-x-auto scrollbar-hide">
         <!-- Home Link -->
         <a
           href="/"
-          class={`px-4 py-3 text-sm font-bold uppercase tracking-wider border-b-4 transition-colors ${currentPath === "/" ? "border-white bg-primary-700 dark:bg-neutral-700" : "border-transparent hover:bg-primary-700 dark:hover:bg-neutral-700 hover:border-primary-400"}`}
+          class={`flex-shrink-0 px-4 py-3 text-sm font-bold uppercase tracking-wider border-b-4 transition-colors ${currentPath === "/" ? "border-white bg-primary-700 dark:bg-neutral-700" : "border-transparent hover:bg-primary-700 dark:hover:bg-neutral-700 hover:border-primary-400"}`}
         >
-          News Home
+          Home
         </a>
 
         <!-- Categories -->
         {
-          CATEGORIES.slice(0, 8).map((category) => (
+          CATEGORIES.map((category) => (
             <a
               href={`/category/${category.slug}/`}
-              class={`px-4 py-3 text-sm font-bold uppercase tracking-wider border-b-4 transition-colors ${currentPath.includes(category.slug) ? "border-white bg-primary-700 dark:bg-neutral-700" : "border-transparent hover:bg-primary-700 dark:hover:bg-neutral-700 hover:border-primary-400"}`}
+              class={`flex-shrink-0 px-4 py-3 text-sm font-bold uppercase tracking-wider border-b-4 transition-colors whitespace-nowrap ${currentPath.includes(category.slug) ? "border-white bg-primary-700 dark:bg-neutral-700" : "border-transparent hover:bg-primary-700 dark:hover:bg-neutral-700 hover:border-primary-400"}`}
             >
               {category.name}
             </a>
@@ -282,4 +275,19 @@ const dateString = today.toLocaleDateString("en-US", {
 
   setupInteractivity();
   document.addEventListener("astro:after-swap", setupInteractivity);
+
+  // Live date — runs client-side so it always shows the real current date
+  function updateLiveDate() {
+    const el = document.getElementById("live-date");
+    if (el) {
+      el.textContent = new Date().toLocaleDateString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+    }
+  }
+  updateLiveDate();
+  document.addEventListener("astro:after-swap", updateLiveDate);
 </script>

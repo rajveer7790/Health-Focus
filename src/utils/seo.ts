@@ -17,6 +17,11 @@ export const CATEGORIES = [
     { name: 'Gut Health', slug: 'gut-health', icon: '🦠', color: 'primary' },
     { name: 'Biohacking', slug: 'biohacking', icon: '⚡', color: 'accent' },
     { name: 'Lifestyle', slug: 'lifestyle', icon: '🌟', color: 'success' },
+    { name: 'Hormone Health', slug: 'hormone-health', icon: '🌿', color: 'primary' },
+    { name: 'Metabolic Health', slug: 'metabolic-health', icon: '🔥', color: 'success' },
+    { name: 'Nervous System', slug: 'nervous-system', icon: '🧠', color: 'accent' },
+    { name: 'Skin Longevity', slug: 'skin-longevity', icon: '✨', color: 'primary' },
+    { name: 'Men\'s Health', slug: 'mens-health', icon: '💪', color: 'accent' },
 ];
 
 export function generateSEO({
