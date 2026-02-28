@@ -24,7 +24,9 @@ const blogCollection = defineCollection({
             'metabolic-health',
             'nervous-system',
             'skin-longevity',
-            'mens-health'
+            'mens-health',
+            'heart-health',
+            'environmental-health'
         ]),
         tags: z.array(z.string()).default([]),
         image: image().optional(),
