@@ -12,6 +12,8 @@ export const CATEGORIES = [
     { name: 'Nutrition', slug: 'nutrition', icon: '🥗', color: 'success' },
     { name: 'Fitness', slug: 'fitness', icon: '💪', color: 'accent' },
     { name: 'Sleep', slug: 'sleep', icon: '😴', color: 'primary' },
+    { name: 'Healthy Habits', slug: 'healthy-habits', icon: '✅', color: 'success' },
+    { name: 'Wellness', slug: 'wellness', icon: '🌿', color: 'primary' },
     { name: 'Women\'s Health', slug: 'womens-health', icon: '🌸', color: 'accent' },
     { name: 'Longevity', slug: 'longevity', icon: '⏳', color: 'success' },
     { name: 'Gut Health', slug: 'gut-health', icon: '🦠', color: 'primary' },
@@ -22,6 +24,8 @@ export const CATEGORIES = [
     { name: 'Nervous System', slug: 'nervous-system', icon: '🧠', color: 'accent' },
     { name: 'Skin Longevity', slug: 'skin-longevity', icon: '✨', color: 'primary' },
     { name: 'Men\'s Health', slug: 'mens-health', icon: '💪', color: 'accent' },
+    { name: 'Heart Health', slug: 'heart-health', icon: '❤️', color: 'primary' },
+    { name: 'Environmental Health', slug: 'environmental-health', icon: '🌎', color: 'success' },
 ];
 
 export function generateSEO({
