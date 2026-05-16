@@ -6,6 +6,8 @@ const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'
 const blogDir = path.join(repoRoot, 'src', 'content', 'blog');
 const configPath = path.join(repoRoot, 'src', 'content', 'config.ts');
 const seoPath = path.join(repoRoot, 'src', 'utils', 'seo.ts');
+const publishingGuidePath = path.join(repoRoot, 'docs', 'blog-publishing-guide.md');
+const conflictMarkerPattern = /^(<<<<<<<|=======|>>>>>>>)/m;
 
 const read = (filePath) => readFileSync(filePath, 'utf8');
 
@@ -54,12 +56,15 @@ for (const category of allowedCategories) {
 
 for (const filePath of mdxFiles) {
   const relativePath = path.relative(repoRoot, filePath);
+  const source = read(filePath);
   const slug = path.basename(filePath, '.mdx');
+
+  if (conflictMarkerPattern.test(source)) errors.push(`${relativePath}: unresolved merge conflict marker found.`);
 
   if (slugs.has(slug)) errors.push(`${relativePath}: duplicate slug "${slug}".`);
   slugs.add(slug);
 
-  const frontmatter = extractFrontmatter(read(filePath));
+  const frontmatter = extractFrontmatter(source);
   if (!frontmatter) {
     errors.push(`${relativePath}: missing frontmatter block.`);
     continue;
@@ -78,6 +83,10 @@ for (const filePath of mdxFiles) {
     const resolvedImagePath = path.resolve(path.dirname(filePath), image);
     if (!existsSync(resolvedImagePath)) errors.push(`${relativePath}: image path does not exist: ${image}.`);
   }
+}
+
+if (existsSync(publishingGuidePath) && conflictMarkerPattern.test(read(publishingGuidePath))) {
+  errors.push('docs/blog-publishing-guide.md: unresolved merge conflict marker found.');
 }
 
 if (errors.length > 0) {

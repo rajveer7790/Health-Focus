@@ -65,7 +65,7 @@ No route file needs to be edited for a normal new blog post:
 
 ## Validation commands
 
-Run these before committing blog content changes:
+Run these before committing blog content changes. If you are resolving a merge conflict in this section, keep all three commands below and remove every `<<<<<<<`, `=======`, and `>>>>>>>` marker before committing:
 
 ```bash
 npm run audit:blog
