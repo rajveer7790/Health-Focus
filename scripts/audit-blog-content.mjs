@@ -7,9 +7,14 @@ const blogDir = path.join(repoRoot, 'src', 'content', 'blog');
 const configPath = path.join(repoRoot, 'src', 'content', 'config.ts');
 const seoPath = path.join(repoRoot, 'src', 'utils', 'seo.ts');
 const publishingGuidePath = path.join(repoRoot, 'docs', 'blog-publishing-guide.md');
-const conflictMarkerPattern = /^(<<<<<<<|=======|>>>>>>>)/m;
+const markerStarts = ['<'.repeat(7), '='.repeat(7), '>'.repeat(7)];
+const conflictMarkerPattern = new RegExp(`^(${markerStarts.map(escapeRegExp).join('|')})(?:\\s|$)`, 'm');
 
 const read = (filePath) => readFileSync(filePath, 'utf8');
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
 
 function walkMdx(dir) {
   return readdirSync(dir)

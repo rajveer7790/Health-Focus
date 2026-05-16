@@ -7,6 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "audit:conflicts": "node scripts/audit-conflicts.mjs",
     "audit:blog": "node scripts/audit-blog-content.mjs",
     "audit:seo": "node scripts/audit-seo.mjs"
   },
