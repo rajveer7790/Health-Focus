@@ -3,7 +3,7 @@ export const SITE_CONFIG = {
     description: 'Practical guidance for building sustainable fitness and healthy habits in real life.',
     url: 'https://healthfocus.fit',
     author: 'Health Focus Team',
-    defaultImage: '/og-image.jpg',
+    defaultImage: '/android-chrome-512x512.png',
     twitterHandle: '@healthfocus',
 };
 
@@ -12,6 +12,8 @@ export const CATEGORIES = [
     { name: 'Nutrition', slug: 'nutrition', icon: '🥗', color: 'success' },
     { name: 'Fitness', slug: 'fitness', icon: '💪', color: 'accent' },
     { name: 'Sleep', slug: 'sleep', icon: '😴', color: 'primary' },
+    { name: 'Healthy Habits', slug: 'healthy-habits', icon: '✅', color: 'success' },
+    { name: 'Wellness', slug: 'wellness', icon: '🌿', color: 'primary' },
     { name: 'Women\'s Health', slug: 'womens-health', icon: '🌸', color: 'accent' },
     { name: 'Longevity', slug: 'longevity', icon: '⏳', color: 'success' },
     { name: 'Gut Health', slug: 'gut-health', icon: '🦠', color: 'primary' },
@@ -22,7 +24,33 @@ export const CATEGORIES = [
     { name: 'Nervous System', slug: 'nervous-system', icon: '🧠', color: 'accent' },
     { name: 'Skin Longevity', slug: 'skin-longevity', icon: '✨', color: 'primary' },
     { name: 'Men\'s Health', slug: 'mens-health', icon: '💪', color: 'accent' },
+    { name: 'Heart Health', slug: 'heart-health', icon: '❤️', color: 'primary' },
+    { name: 'Environmental Health', slug: 'environmental-health', icon: '🌎', color: 'success' },
 ];
+
+export function toAbsoluteUrl(value?: string) {
+    if (!value) return SITE_CONFIG.url;
+
+    try {
+        const absoluteUrl = new URL(value, SITE_CONFIG.url);
+        absoluteUrl.hash = '';
+        return absoluteUrl.toString();
+    } catch {
+        return SITE_CONFIG.url;
+    }
+}
+
+export function toCanonicalUrl(value?: string) {
+    const canonicalUrl = new URL(toAbsoluteUrl(value));
+    canonicalUrl.search = '';
+    canonicalUrl.hash = '';
+    return canonicalUrl.toString();
+}
+
+function formatSEOTitle(title?: string) {
+    if (!title) return SITE_CONFIG.title;
+    return title.includes(SITE_CONFIG.title) ? title : `${title} | ${SITE_CONFIG.title}`;
+}
 
 export function generateSEO({
     title,
@@ -45,10 +73,10 @@ export function generateSEO({
     tags?: string[];
     url?: string;
 }) {
-    const seoTitle = title ? `${title} | ${SITE_CONFIG.title}` : SITE_CONFIG.title;
+    const seoTitle = formatSEOTitle(title);
     const seoDescription = description || SITE_CONFIG.description;
-    const seoImage = image || SITE_CONFIG.defaultImage;
-    const seoUrl = url || SITE_CONFIG.url;
+    const seoImage = toAbsoluteUrl(image || SITE_CONFIG.defaultImage);
+    const seoUrl = toCanonicalUrl(url || SITE_CONFIG.url);
 
     return {
         title: seoTitle,

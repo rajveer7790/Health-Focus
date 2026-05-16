@@ -4,6 +4,7 @@ import Newsletter from "../components/Newsletter.astro";
 import NewsCard from "../components/NewsCard.astro";
 import { formatDate } from "../utils/formatDate";
 import { generateArticleSchema } from "../utils/schema";
+import { toAbsoluteUrl } from "../utils/seo";
 import { getRelatedPosts } from "../utils/relatedPosts";
 import { calculateReadingTime } from "../utils/readingTime";
 import type { ImageMetadata } from "astro";
@@ -27,13 +28,16 @@ interface Props {
 
 const { frontmatter, headings, readingTime, relatedPosts = [] } = Astro.props;
 
+const articleImage = toAbsoluteUrl(
+  typeof frontmatter.image === "string"
+    ? frontmatter.image
+    : frontmatter.image?.src,
+);
+
 const schema = generateArticleSchema({
   title: frontmatter.title,
   description: frontmatter.description,
-  image:
-    typeof frontmatter.image === "string"
-      ? frontmatter.image
-      : frontmatter.image?.src || "",
+  image: articleImage,
   datePublished: frontmatter.pubDate.toISOString(),
   dateModified:
     frontmatter.updatedDate?.toISOString() || frontmatter.pubDate.toISOString(),
@@ -44,9 +48,12 @@ const schema = generateArticleSchema({
 <BaseLayout
   title={frontmatter.title}
   description={frontmatter.description}
-  image={typeof frontmatter.image === "string"
-    ? frontmatter.image
-    : frontmatter.image?.src}
+  image={articleImage}
+  article={true}
+  publishedTime={frontmatter.pubDate.toISOString()}
+  modifiedTime={frontmatter.updatedDate?.toISOString() || frontmatter.pubDate.toISOString()}
+  author={frontmatter.author}
+  tags={frontmatter.tags}
   schema={schema}
 >
   <article class="pt-8 pb-16">
