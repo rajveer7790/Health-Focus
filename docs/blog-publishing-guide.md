@@ -65,17 +65,11 @@ No route file needs to be edited for a normal new blog post:
 
 ## Validation commands
 
-Run the full validation sequence before committing blog content changes:
+Run these before committing blog content changes:
 
 ```bash
-npm run audit:conflicts
 npm run audit:blog
 npm run build
-npm run audit:seo
 ```
 
-`npm run audit:conflicts` checks the repository for unresolved merge conflict markers before content or SEO validation runs.
-
 `npm run audit:blog` checks that each MDX post has required metadata, uses an allowed category, has a category display mapping, avoids duplicate slugs, and points to an existing image asset.
-
-`npm run audit:seo` should be run after `npm run build`. It checks the generated HTML, `sitemap.xml`, and `robots.txt` for core SEO problems such as missing titles/descriptions/canonicals, non-absolute Open Graph images, duplicate sitemap URLs, and sitemap URLs without matching built pages.
