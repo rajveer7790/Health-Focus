@@ -54,7 +54,7 @@ export function generateArticleSchema({
             name: SITE_CONFIG.title,
             logo: {
                 '@type': 'ImageObject',
-                url: `${SITE_CONFIG.url}/logo.png`,
+                url: `${SITE_CONFIG.url}/android-chrome-512x512.png`,
             },
         },
     };
@@ -128,7 +128,7 @@ export function generateCollectionPageSchema({
             name: SITE_CONFIG.title,
             logo: {
                 '@type': 'ImageObject',
-                url: `${SITE_CONFIG.url}/logo.png`,
+                url: `${SITE_CONFIG.url}/android-chrome-512x512.png`,
             }
         }
     };
