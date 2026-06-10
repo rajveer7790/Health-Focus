@@ -3,18 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-<<<<<<< HEAD
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "audit:blog": "node scripts/audit-blog-content.mjs"
-=======
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
->>>>>>> 66ec9f4 (feat: premium UI, SEO schema, animations, Netlify config)
   },
   "dependencies": {
     "@fontsource/inter": "^5.2.8",
