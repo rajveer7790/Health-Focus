@@ -1,4 +1,3 @@
-// This file is intentionally replaced.
-// Related posts logic is handled by lib/markdown.ts → getRelatedPosts()
-// This stub prevents TypeScript from erroring on old Astro imports.
+// Legacy Astro utility — not used in Next.js
+// Real related posts: lib/markdown.ts → getRelatedPosts()
 export {};
