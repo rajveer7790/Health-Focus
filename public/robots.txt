@@ -1,7 +1,8 @@
 User-agent: *
-Disallow:
+Allow: /
 
-Allow: /_astro/
-Allow: /assets/
+Disallow: /api/
+Disallow: /_next/
 
 Sitemap: https://healthfocus.fit/sitemap.xml
+Host: https://healthfocus.fit

@@ -1,4 +1,8 @@
-# build output
+# Next.js build output
+.next/
+out/
+
+# Astro build output
 dist/
 # generated types
 .astro/
@@ -12,13 +16,17 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-
 # environment variables
 .env
-.env.production
+.env.local
+.env.*.local
+# NOTE: .env.production is NOT ignored so server gets env vars
 
 # macOS-specific files
 .DS_Store
 
 # jetbrains setting folder
 .idea/
+
+# Editor
+.vscode/settings.json
