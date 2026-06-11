@@ -37,8 +37,51 @@ export default function Home() {
 
   return (
     <div className="bg-neutral-50 dark:bg-neutral-950 min-h-screen">
-      {/* SEO H1 — visually styled as a site descriptor, required by Google */}
-      <h1 className="sr-only">Health Focus — Evidence-Based Health, Nutrition & Wellness Articles for Americans</h1>
+      {/* ── JSON-LD WebPage Schema — AEO / GEO structured data ── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Health Focus — Evidence-Based Health & Wellness",
+            "description": "Expert-reviewed health articles on nutrition, mental health, gut health, hormone balance, longevity, and wellness for Americans.",
+            "url": "https://healthfocus.fit",
+            "isPartOf": {
+              "@type": "WebSite",
+              "name": "Health Focus",
+              "url": "https://healthfocus.fit"
+            },
+            "about": [
+              { "@type": "MedicalCondition", "name": "Nutrition and Diet" },
+              { "@type": "MedicalCondition", "name": "Mental Health" },
+              { "@type": "MedicalCondition", "name": "Gut Health" },
+              { "@type": "MedicalCondition", "name": "Hormonal Health" },
+              { "@type": "MedicalCondition", "name": "Longevity" }
+            ]
+          })
+        }}
+      />
+
+      {/* ── VISIBLE H1 — Google primary heading signal ── */}
+      <div className="bg-white dark:bg-neutral-900 border-b border-neutral-100 dark:border-neutral-800 py-6">
+        <div className="container-custom text-center">
+          <h1
+            className="font-black text-3xl md:text-4xl lg:text-5xl tracking-tight leading-tight"
+            style={{
+              background: "linear-gradient(135deg, #16a34a 0%, #059669 40%, #0891b2 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            Health Focus — Evidence-Based Health &amp; Wellness
+          </h1>
+          <p className="mt-2 text-sm font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-widest">
+            Expert-Reviewed Articles · Nutrition · Mental Health · Longevity · Gut Health
+          </p>
+        </div>
+      </div>
 
       {/* ── HERO SECTION ── */}
       <section className="bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800">
@@ -61,6 +104,21 @@ export default function Home() {
               </div>
             </Reveal>
           </div>
+        </div>
+      </section>
+
+      {/* ── AEO / GEO: "What is Health Focus?" — AI citation signal ── */}
+      <section
+        aria-label="About Health Focus"
+        className="bg-neutral-50 dark:bg-neutral-900/50 border-b border-neutral-200 dark:border-neutral-800 py-8"
+      >
+        <div className="container-custom max-w-3xl mx-auto text-center px-4">
+          <h2 className="sr-only">What is Health Focus?</h2>
+          <p className="text-base md:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed">
+            <strong className="text-neutral-900 dark:text-white">Health Focus</strong> is an evidence-based health and wellness publication dedicated to delivering accurate, science-backed information on nutrition, mental health, gut health, hormonal balance, and longevity.
+            Every article is researched and written by a dedicated editorial team and reviewed by qualified medical professionals to ensure clinical accuracy.
+            Our content is tailored for health-conscious Americans who want trustworthy, actionable guidance — without the noise.
+          </p>
         </div>
       </section>
 

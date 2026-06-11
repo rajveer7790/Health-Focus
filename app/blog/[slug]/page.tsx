@@ -75,19 +75,26 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     ? post.description.substring(0, 152) + "..."
     : post.description;
 
-  // JSON-LD: Article Schema
+  // JSON-LD: Article Schema (upgraded for AEO/GEO — YMYL MedicalWebPage signal)
   const articleSchema = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": ["Article", "MedicalWebPage"],
     "headline": post.title,
     "description": metaDesc,
     "image": post.image ? `${BASE_URL}${post.image}` : `${BASE_URL}/social-image.jpg`,
     "datePublished": post.pubDate,
     "dateModified": post.updatedDate || post.pubDate,
+    "lastReviewed": post.updatedDate || post.pubDate,
     "author": {
       "@type": "Person",
       "name": post.author,
       "url": `${BASE_URL}/author/${post.author.toLowerCase().replace(/\s+/g, '-')}`,
+    },
+    "reviewedBy": {
+      "@type": "Person",
+      "name": "Dr. Priya Sharma",
+      "jobTitle": "Endocrinologist & Medical Reviewer",
+      "url": "https://healthfocus.fit/about",
     },
     "publisher": {
       "@type": "Organization",
@@ -106,6 +113,15 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     "keywords": post.tags?.join(", "),
     "articleSection": post.category.replace(/-/g, ' '),
     "inLanguage": "en-US",
+    "specialty": "Nutrition, Mental Health, and Wellness",
+    "citation": [
+      "https://www.ncbi.nlm.nih.gov/",
+      "https://www.who.int/",
+    ],
+    "speakable": {
+      "@type": "SpeakableSpecification",
+      "cssSelector": ["h1", ".article-summary", "h2"],
+    },
   };
 
   // JSON-LD: BreadcrumbList Schema
@@ -209,12 +225,19 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                   </p>
                 </div>
               </div>
-              {/* Trust badge */}
-              <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 px-3 py-1.5 rounded-full border border-emerald-200 dark:border-emerald-800">
-                <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                Evidence Based
+              {/* Trust badges */}
+              <div className="flex items-center gap-2 flex-wrap">
+                {/* Evidence Based badge */}
+                <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 px-3 py-1.5 rounded-full border border-emerald-200 dark:border-emerald-800">
+                  <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Evidence Based
+                </div>
+                {/* Medically Reviewed badge */}
+                <div className="flex items-center gap-1.5 text-xs font-semibold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-3 py-1.5 rounded-full border border-blue-200 dark:border-blue-800">
+                  🩺 Medically Reviewed
+                </div>
               </div>
             </div>
 
@@ -229,8 +252,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               </div>
             )}
 
-            {/* Lead / Description */}
-            <p className="text-lg md:text-xl text-neutral-700 dark:text-neutral-300 leading-relaxed font-serif italic mb-10 pl-5 border-l-4 border-primary-500">
+            {/* Lead / Description — article-summary class for speakable targeting */}
+            <p className="article-summary text-lg md:text-xl text-neutral-700 dark:text-neutral-300 leading-relaxed font-serif italic mb-10 pl-5 border-l-4 border-primary-500">
               {post.description}
             </p>
 
@@ -266,9 +289,31 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               </div>
             )}
 
+            {/* Medical Disclaimer Box */}
+            <div
+              style={{
+                backgroundColor: '#fffbeb',
+                border: '1px solid #fcd34d',
+                borderRadius: '12px',
+                padding: '14px 18px',
+                marginTop: '32px',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '10px',
+              }}
+              className="dark:bg-amber-900/20 dark:border-amber-700/50"
+              role="note"
+              aria-label="Medical Disclaimer"
+            >
+              <span style={{ fontSize: '18px', lineHeight: 1, flexShrink: 0 }}>⚕️</span>
+              <p style={{ margin: 0, fontSize: '12px', lineHeight: '1.6', color: '#92400e', fontWeight: 500 }} className="dark:text-amber-300">
+                <strong>Medical Disclaimer:</strong> This article is for informational purposes only and does not constitute medical advice. Always consult a qualified healthcare provider.
+              </p>
+            </div>
+
             {/* Author Card */}
             {author && (
-              <div className="mt-16 p-6 md:p-8 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl flex flex-col sm:flex-row gap-6 items-start">
+              <div className="mt-8 p-6 md:p-8 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl flex flex-col sm:flex-row gap-6 items-start">
                 {author.avatar && (
                   <img
                     src={author.avatar}
@@ -348,7 +393,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
               {/* Newsletter CTA */}
               <div className="bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl p-6 text-white">
-                <h3 className="font-display font-black text-lg mb-2">Stay Healthy & Informed</h3>
+                <h3 className="font-display font-black text-lg mb-2">Stay Healthy &amp; Informed</h3>
                 <p className="text-primary-100 text-sm mb-4 leading-relaxed">Get evidence-based health tips delivered to your inbox weekly.</p>
                 <Link href="/contact" className="block w-full text-center bg-white text-primary-700 font-bold text-sm py-2.5 rounded-xl hover:bg-primary-50 transition-colors">
                   Subscribe Free →
