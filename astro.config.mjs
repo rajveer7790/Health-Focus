@@ -1,18 +1,13 @@
-// @ts-check
-import { defineConfig } from 'astro/config';
+// Next.js configuration
+// All Astro config has been removed — this project now runs entirely on Next.js 14
+// MDX content is read via gray-matter (lib/markdown.ts)
 
-import mdx from '@astrojs/mdx';
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'export',
+  images: {
+    unoptimized: true,
+  },
+};
 
-import tailwind from '@astrojs/tailwind';
-
-// https://astro.build/config
-export default defineConfig({
-  site: 'https://healthfocus.fit',
-  integrations: [mdx(), tailwind()],
-  markdown: {
-    shikiConfig: {
-      theme: 'github-dark',
-      wrap: true
-    }
-  }
-});
+export default nextConfig;
