@@ -340,8 +340,7 @@ export default function AboutPage() {
             <SectionDivider title="Disclaimer" />
             <div className="p-6 bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 rounded-lg my-6">
               <p className="text-red-900 dark:text-red-200 font-medium text-sm">
-                We are not medical professionals. This website provides general
-                health information for educational purposes only. Always consult
+                The content on Health Focus is for educational and informational purposes only. Always consult
                 with a qualified healthcare provider before making any health
                 decisions or starting any treatment program.
               </p>

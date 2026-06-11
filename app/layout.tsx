@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
+import { Inter, JetBrains_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import DarkModeToggle from "@/components/DarkModeToggle";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://healthfocus.fit"),
@@ -12,32 +17,7 @@ export const metadata: Metadata = {
   },
   description:
     "Your trusted source for evidence-based health, nutrition, and wellness information. Discover articles on mental health, fitness, longevity, and more.",
-  keywords: [
-    "health",
-    "nutrition",
-    "wellness",
-    "mental health",
-    "gut health",
-    "longevity",
-    "women's health",
-    "fitness",
-    "evidence-based health",
-    "healthy eating",
-    "weight loss",
-    "diabetes",
-    "heart health",
-    "sleep health",
-    "stress management",
-    "supplements",
-    "protein",
-    "intermittent fasting",
-    "inflammation",
-    "hormones",
-  ],
   authors: [{ name: "Health Focus Editorial Team", url: "https://healthfocus.fit" }],
-  verification: {
-    google: "REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN",
-  },
   openGraph: {
     title: "Health Focus | Expert Wellness & Nutrition Insights",
     description:
@@ -64,16 +44,6 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.svg",
   },
-  keywords: [
-    "health focus",
-    "evidence-based health",
-    "nutrition advice",
-    "mental health tips",
-    "gut health",
-    "women's health",
-    "longevity tips",
-    "wellness USA",
-  ],
   alternates: {
     canonical: "https://healthfocus.fit",
   },
@@ -134,10 +104,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="scroll-smooth">
+    <html lang="en" suppressHydrationWarning className={`scroll-smooth ${inter.variable} ${jetbrainsMono.variable}`}>
       <head>
         {/* Dark-mode flash prevention */}
-        <script
+        <Script
+          id="theme-script"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               try {

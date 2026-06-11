@@ -1,5 +1,6 @@
 import { getBlogPosts, getAuthors, getAuthorBySlug } from "@/lib/markdown";
 import NewsCard from "@/components/NewsCard";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
@@ -14,7 +15,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const author = getAuthorBySlug(params.slug);
   if (!author) return {};
   return {
-    title: `${author.name} | Health Focus Authors`,
+    title: `${author.name} Authors`,
     description: author.bio,
   };
 }
@@ -32,7 +33,7 @@ export default function AuthorPage({ params }: { params: { slug: string } }) {
     <div className="container-custom py-16 max-w-4xl mx-auto">
       <div className="mb-16 p-8 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl flex flex-col md:flex-row gap-8 items-center md:items-start text-center md:text-left">
         {author.avatar && (
-          <img src={author.avatar} alt={author.name} className="w-32 h-32 rounded-full object-cover shadow-lg" />
+          <Image src={author.avatar} alt={author.name} width={128} height={128} className="w-32 h-32 rounded-full object-cover shadow-lg" />
         )}
         <div>
           <h1 className="text-4xl font-display font-bold mb-2">{author.name}</h1>

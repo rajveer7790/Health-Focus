@@ -1,6 +1,7 @@
 import { getBlogPosts, getBlogPostBySlug, getAuthorBySlug, getRelatedPosts } from "@/lib/markdown";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { format } from "date-fns";
@@ -23,13 +24,13 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     : post.description;
 
   return {
-    title: `${post.title} | Health Focus`,
+    title: post.title,
     description: metaDesc,
     alternates: {
       canonical: `${BASE_URL}/blog/${post.slug}`,
     },
     openGraph: {
-      title: `${post.title} | Health Focus`,
+      title: post.title,
       description: metaDesc,
       type: "article",
       publishedTime: post.pubDate,
@@ -41,7 +42,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     },
     twitter: {
       card: "summary_large_image",
-      title: `${post.title} | Health Focus`,
+      title: post.title,
       description: metaDesc,
       images: post.image ? [post.image] : [],
     },
@@ -205,9 +206,11 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             <div className="flex flex-wrap items-center justify-between gap-4 py-5 border-y border-neutral-200 dark:border-neutral-800 mb-8">
               <div className="flex items-center gap-3">
                 {author?.avatar ? (
-                  <img
+                  <Image
                     src={author.avatar}
                     alt={`${author.name} - Health Focus author`}
+                    width={44}
+                    height={44}
                     className="w-11 h-11 rounded-full object-cover border-2 border-neutral-200 dark:border-neutral-700"
                   />
                 ) : (
@@ -236,18 +239,21 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                 </div>
                 {/* Medically Reviewed badge */}
                 <div className="flex items-center gap-1.5 text-xs font-semibold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-3 py-1.5 rounded-full border border-blue-200 dark:border-blue-800">
-                  🩺 Medically Reviewed
+                  🩺 Medically Reviewed by Dr. Priya Sharma
                 </div>
               </div>
             </div>
 
             {/* Featured Image */}
             {post.image && (
-              <div className="mb-10 rounded-2xl overflow-hidden shadow-md aspect-video bg-neutral-100 dark:bg-neutral-900">
-                <img
+              <div className="relative mb-10 rounded-2xl overflow-hidden shadow-md aspect-video bg-neutral-100 dark:bg-neutral-900">
+                <Image
                   src={post.image}
                   alt={`${post.title} - Health Focus`}
-                  className="w-full h-full object-cover"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 800px"
+                  className="object-cover"
                 />
               </div>
             )}
@@ -278,13 +284,12 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               <div className="mt-12 flex flex-wrap gap-2">
                 <span className="text-xs font-bold text-neutral-500 uppercase tracking-wider self-center mr-2">Topics:</span>
                 {post.tags.map(tag => (
-                  <Link
+                  <span
                     key={tag}
-                    href={`/category/${post.category}`}
-                    className="px-3 py-1 text-xs font-semibold text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 rounded-full border border-primary-200 dark:border-primary-800 hover:bg-primary-100 transition-colors"
+                    className="px-3 py-1 text-xs font-semibold text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 rounded-full border border-primary-200 dark:border-primary-800"
                   >
                     {tag}
-                  </Link>
+                  </span>
                 ))}
               </div>
             )}
@@ -311,13 +316,30 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               </p>
             </div>
 
+            {/* Visible FAQ Section for AEO */}
+            {faqs.length > 0 && (
+              <div className="mt-12 mb-8 bg-neutral-50 dark:bg-neutral-900 p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800">
+                <h2 className="text-2xl font-display font-bold text-neutral-900 dark:text-white mb-6 border-b border-neutral-200 dark:border-neutral-800 pb-2">Frequently Asked Questions</h2>
+                <div className="space-y-6">
+                  {faqs.map((faq, i) => (
+                    <div key={i}>
+                      <h3 className="text-lg font-bold text-neutral-900 dark:text-white mb-2">{faq.question}</h3>
+                      <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed">{faq.answer}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Author Card */}
             {author && (
               <div className="mt-8 p-6 md:p-8 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl flex flex-col sm:flex-row gap-6 items-start">
                 {author.avatar && (
-                  <img
+                  <Image
                     src={author.avatar}
                     alt={`${author.name} - Health Focus`}
+                    width={80}
+                    height={80}
                     className="w-20 h-20 shrink-0 rounded-full object-cover shadow border-2 border-white dark:border-neutral-800"
                   />
                 )}
@@ -342,8 +364,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                   {relatedPosts.map(related => (
                     <Link key={related.slug} href={`/blog/${related.slug}`} className="group flex gap-4 items-start p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 hover:border-primary-300 dark:hover:border-primary-700 hover:shadow-md transition-all bg-white dark:bg-neutral-900">
                       {related.image && (
-                        <div className="w-20 h-16 shrink-0 rounded-lg overflow-hidden bg-neutral-100">
-                          <img src={related.image} alt={related.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        <div className="relative w-20 h-16 shrink-0 rounded-lg overflow-hidden bg-neutral-100">
+                          <Image src={related.image} alt={related.title} fill sizes="80px" className="object-cover group-hover:scale-105 transition-transform duration-300" />
                         </div>
                       )}
                       <div className="min-w-0">
@@ -373,8 +395,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                     {relatedPosts.map(related => (
                       <Link key={related.slug} href={`/blog/${related.slug}`} className="group flex gap-3 items-start">
                         {related.image && (
-                          <div className="w-16 h-14 shrink-0 rounded-lg overflow-hidden bg-neutral-200 dark:bg-neutral-700">
-                            <img src={related.image} alt={related.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                          <div className="relative w-16 h-14 shrink-0 rounded-lg overflow-hidden bg-neutral-200 dark:bg-neutral-700">
+                            <Image src={related.image} alt={related.title} fill sizes="64px" className="object-cover group-hover:scale-105 transition-transform duration-300" />
                           </div>
                         )}
                         <div className="min-w-0">

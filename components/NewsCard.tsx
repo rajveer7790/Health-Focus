@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { format } from "date-fns";
 import type { BlogPost } from "@/lib/markdown";
 
@@ -26,7 +27,7 @@ export default function NewsCard({
         <div className="flex flex-col gap-5">
           <div className="relative aspect-video w-full overflow-hidden rounded-2xl shadow-lg">
             {post.image ? (
-              <img src={post.image} alt={post.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading={imagePriority ? "eager" : "lazy"} />
+              <Image src={post.image} alt={post.title} className="object-cover transition-transform duration-700 group-hover:scale-105" fill priority={imagePriority} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
             ) : (
               <div className="h-full w-full bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-900 dark:to-primary-800" />
             )}
@@ -55,7 +56,7 @@ export default function NewsCard({
         <div className="flex flex-col sm:flex-row gap-5 group">
           <div className="relative sm:w-48 md:w-56 aspect-video sm:aspect-square shrink-0 overflow-hidden rounded-xl bg-neutral-100 dark:bg-neutral-800">
             {post.image ? (
-              <img src={post.image} alt={post.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+              <Image src={post.image} alt={post.title} className="object-cover transition-transform duration-500 group-hover:scale-105" fill sizes="(max-width: 768px) 100vw, 33vw" />
             ) : (
               <div className="h-full w-full bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-900/60 dark:to-primary-800/60" />
             )}
@@ -76,7 +77,7 @@ export default function NewsCard({
         <div className="flex flex-col gap-3 h-full group bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden border border-neutral-100 dark:border-neutral-800 hover:shadow-lg hover:border-primary-200 dark:hover:border-primary-800 transition-all duration-300">
           <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100 dark:bg-neutral-800">
             {post.image ? (
-              <img src={post.image} alt={post.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+              <Image src={post.image} alt={post.title} className="object-cover transition-transform duration-500 group-hover:scale-105" fill sizes="(max-width: 768px) 100vw, 33vw" />
             ) : (
               <div className="h-full w-full bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-700" />
             )}
@@ -97,7 +98,7 @@ export default function NewsCard({
         <div className="flex gap-3 items-start py-4 border-b border-neutral-100 dark:border-neutral-800 last:border-0 group">
           <div className="relative w-20 h-16 shrink-0 overflow-hidden rounded-lg bg-neutral-100 dark:bg-neutral-800">
             {post.image ? (
-              <img src={post.image} alt={post.title} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
+              <Image src={post.image} alt={post.title} className="object-cover transition-transform duration-300 group-hover:scale-105" fill sizes="100px" />
             ) : (
               <div className="h-full w-full bg-neutral-200 dark:bg-neutral-700" />
             )}
@@ -126,7 +127,7 @@ export default function NewsCard({
         <div className="relative aspect-[3/4] overflow-hidden w-full rounded-2xl">
           <div className="absolute inset-0 bg-neutral-900">
             {post.image && (
-              <img src={post.image} alt={post.title} className="h-full w-full object-cover opacity-75 group-hover:opacity-50 transition-opacity duration-300" />
+              <Image src={post.image} alt={post.title} className="object-cover opacity-75 group-hover:opacity-50 transition-opacity duration-300" fill sizes="(max-width: 768px) 100vw, 33vw" />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
           </div>
