@@ -33,6 +33,11 @@ export const metadata: Metadata = {
     "intermittent fasting",
     "inflammation",
     "hormones",
+    "health focus",
+    "nutrition advice",
+    "mental health tips",
+    "longevity tips",
+    "wellness USA",
   ],
   authors: [{ name: "Health Focus Editorial Team", url: "https://healthfocus.fit" }],
   verification: {
@@ -64,16 +69,6 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.svg",
   },
-  keywords: [
-    "health focus",
-    "evidence-based health",
-    "nutrition advice",
-    "mental health tips",
-    "gut health",
-    "women's health",
-    "longevity tips",
-    "wellness USA",
-  ],
   alternates: {
     canonical: "https://healthfocus.fit",
   },
