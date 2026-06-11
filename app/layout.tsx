@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   },
   description:
     "Your trusted source for evidence-based health, nutrition, and wellness information. Discover articles on mental health, fitness, longevity, and more.",
+
   authors: [{ name: "Health Focus Editorial Team", url: "https://healthfocus.fit" }],
   openGraph: {
     title: "Health Focus | Expert Wellness & Nutrition Insights",
